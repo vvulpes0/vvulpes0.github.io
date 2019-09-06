@@ -1,37 +1,63 @@
-## Welcome to GitHub Pages
+## Contents
+* [Interests](#interests)
+* [Projects](#projects)
+* [Publications](#publications)
 
-You can use the [editor on GitHub](https://github.com/vvulpes0/vvulpes0.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+## Interests
+I am a PhD student at Stony Brook University,
+interested in Mathematical Linguistics.
+Specifically I work with Subregular description and factorization.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Projects
+Over the years I have been building an interactive
+theorem-prover for Subregular logics.
+Implemented in Haskell as both a library and supporting command-line tools,
+[the Language Toolkit][LTK] (LTK) enables somewhat easy translation from
+constraints and automata (and, in some cases, the reverse translation).
+For any Regular language, LTK can also determine
+which of the simple single-relation Subregular classes
+that language is in.
 
-### Markdown
+[LTK]: https://github.com/vvulpes0/Language-Toolkit-2
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Publications
+* James Rogers and Dakotah Lambert.  2019.
+  [Some classes of sets of structures definable without quantifiers][MoL19].
+  In *Proceedings of the 16th Meeting on the Mathematics of Language*,
+  pages 63&ndash;77,
+  Toronto, Canada.
+  Association for Computational Linguistics.
 
-```markdown
-Syntax highlighted code block
+* Dakotah Lambert and James Rogers.  2019.
+  [A logical and computational methodology for exploring
+   systems of phonotactic constraints][SCiL2019].
+  In *Proceedings of the Society for Computation in Linguistics*, volume 2,
+  pages 247&ndash;256,
+  New York City, New York.
 
-# Header 1
-## Header 2
-### Header 3
+* James Rogers and Dakotah Lambert.  2017.
+  [Extracting forbidden factors from Regular stringsets][MoL2017].
+  In *Proceedings of the 15th Meeting on the Mathematics of Language*,
+  pages 36&ndash;46,
+  London, UK.
+  Association for Computational Linguistics.
 
-- Bulleted
-- List
+* Dakotah Lambert, Margaret Fero, Andrew Dai, and James Rogers.  2014.
+  A workbench for logically definable stringsets.
+  In *Proceedings of the 2014 Midstates Conference for
+  Undegraduate Research in Computer Science and Mathematics*,
+  pages 47&ndash;52,
+  Wooster, OH.
 
-1. Numbered
-2. List
+* James Rogers, Jeffrey Heinz, Margaret Fero, Jeremy Hurst, Dakotah Lambert,
+  and Sean Wibel.  2012.
+  [Cognitive and sub-regular complexity][FG2012].
+  In Glyn Morrill and Mark-Jan Nederhof, editor,
+  *Formal Grammar 2012*, volume 8036 of *Lecture Notes in Computer Science*,
+  pages 90&ndash;108.
+  Springer Verlag.
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/vvulpes0/vvulpes0.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+[FG2012]:    https://doi.org/10.1007/978-3-642-39998-5_6
+[MoL2017]:   https://doi.org/10.18653/v1/w17-3404
+[MoL2019]:   https://www.aclweb.org/anthology/W19-5706
+[SCiL2019]:  https://doi.org/10.7275/t0dv-9t05
