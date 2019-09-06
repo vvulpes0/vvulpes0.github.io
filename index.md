@@ -13,7 +13,7 @@ Over the years I have been building an interactive
 theorem-prover for Subregular logics.
 Implemented in Haskell as both a library and supporting command-line tools,
 [the Language Toolkit][LTK] (LTK) enables somewhat easy translation from
-constraints and automata (and, in some cases, the reverse translation).
+constraints to automata (and, in some cases, the reverse translation).
 For any Regular language, LTK can also determine
 which of the simple single-relation Subregular classes
 that language is in.
