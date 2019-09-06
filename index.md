@@ -22,7 +22,7 @@ that language is in.
 
 ## Publications
 * James Rogers and Dakotah Lambert.  2019.
-  [Some classes of sets of structures definable without quantifiers][MoL19].
+  [Some classes of sets of structures definable without quantifiers][MoL2019].
   In *Proceedings of the 16th Meeting on the Mathematics of Language*,
   pages 63&ndash;77,
   Toronto, Canada.
