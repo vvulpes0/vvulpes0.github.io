@@ -72,6 +72,6 @@ that language is in.
 [FG2012]:    https://doi.org/10.1007/978-3-642-39998-5_6
 [JLM2019]:   https://doi.org/10.15398/jlm.v7i2.209
 [MoL2017]:   https://doi.org/10.18653/v1/w17-3404
-[MoL2019]:   https://www.aclweb.org/anthology/W19-5706
+[MoL2019]:   http://doi.org/10.18653/v1/W19-5706
 [SCiL2019]:  https://doi.org/10.7275/t0dv-9t05
 [SCiL2020]:  https://doi.org/10.7275/2n1j-pj39
