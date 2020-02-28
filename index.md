@@ -6,7 +6,9 @@
 ## Interests
 I am a PhD student at Stony Brook University,
 interested in Mathematical Linguistics.
-Specifically I work with Subregular description and factorization.
+Specifically I work in factoring complicated patterns
+and the learning thereof
+using simple (Subregular) descriptive techniques.
 
 ## Projects
 Over the years I have been building an interactive
