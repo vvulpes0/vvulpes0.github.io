@@ -67,11 +67,15 @@ article pre{
 .figure img{
 	border:5px solid #ccc;
 	display:inline;
+	max-width:100%;
+	object-fit:contain;
 }
 .figure p{
 	font-style:italic;
 }
 pre{
+	max-width:100%;
+	overflow:scroll;
 	background-color:#000;
 	color:#ccc;
 	padding:1em 0;
