@@ -68,7 +68,7 @@ article pre{
 	border:5px solid #ccc;
 	display:inline;
 	max-width:100%;
-	object-fit:contain;
+	height:auto;
 }
 .figure p{
 	font-style:italic;
