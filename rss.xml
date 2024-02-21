@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Dakotah Lambert</title>
+<link>https://dakotahlambert.com/</link>
+<description>Formal language theory and more</description>
+<copyright>Copyright 2024, Dakotah Lambert</copyright>
+<language>en</language>
+<pubDate>Wed, 21 Feb 2024 02:11:00 +0100</pubDate>
+<docs>https://www.rssboard.org/rss-specification</docs>
+<ttl>10080</ttl>
+<atom:link href="https://dakotahlambert.com/rss.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Object-Oriented Programming</title>
+<link>https://dakotahlambert.com/blog/20240221.html</link>
+<description>What is object-oriented programming?
+My position is that, fundamentally,
+it is a style of programming that revolves around
+structured data (objects) that dictate their own behaviors.
+That is, it has very little to do
+with any particular language features.</description>
+<pubDate>Wed, 21 Feb 2024 01:53:00 +0100</pubDate>
+<category>Programming</category>
+<guid isPermaLink="false">tag:dakotahlambert.com,2024:rss.1</guid>
+</item>
+</channel>
+</rss>

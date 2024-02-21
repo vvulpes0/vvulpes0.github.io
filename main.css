@@ -51,6 +51,43 @@ nav li{
 	display:inline-block;
 	margin:0 1em 0 0;
 }
+article p{
+	margin:0 0 1em 0;
+}
+article pre{
+	margin:0 0 1em 0;
+}
+.date::before{
+	content:"🗓️ ";
+}
+.figure{
+	text-align:center;
+	max-width:90%;
+}
+.figure img{
+	border:5px solid #ccc;
+	display:inline;
+}
+.figure p{
+	font-style:italic;
+}
+pre{
+	background-color:#000;
+	color:#ccc;
+	padding:1em 0;
+	counter-reset:line;
+}
+pre code{
+	counter-increment:line;
+}
+pre code::before{
+	content:counter(line);
+	color:#588;
+	display:inline-block;
+	text-align:right;
+	width:2em;
+	padding:0 1em 0 0;
+}
 section li::before{
 	content:"»";
 	display:inline-block;

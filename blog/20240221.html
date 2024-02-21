@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="alternate" type="application/rss+xml" title="RSS"
+      href="https://dakotahlambert.com/rss.xml">
+<title>Dakotah Lambert</title>
+<link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<header>
+<h1>Dakotah Lambert</h1>
+<p>collected musings</p>
+</header>
+<nav>
+<h2>Contents</h2>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/PDF/cv.pdf">CV</a></li>
+<li><a href="/#interests">Interests</a></li>
+<li><a href="/#projects">Projects</a></li>
+<li><a href="/#publications">Publications</a></li>
+<li><a href="/blog.html">Blog</a></li>
+</ul>
+</nav>
+<article>
+<h2><a href="/blog/20240221.html">Object-Oriented Programming</a></h2>
+<p class="date">2024 Feb 21 at 01:53</p>
+<p>What is object-oriented programming?
+My position is that, fundamentally,
+it is a style of programming that revolves around
+structured data (objects) that dictate their own behaviors.
+That is, it has very little to do
+with any particular language features.
+</p><p>
+In particular, none of the following are necessary for OOP:
+special syntax for member functions,
+subclasses via inheritance,
+classes in general,
+or
+distinct public/private member variables.
+All of these are useful features in the appropriate context.
+Member function syntax is convenient.
+Classes with subclassing form one of many good ways
+to share functionality between related kinds of objects.
+Having a distinction between public data and private data
+helps to maintain a stable API.
+But none of these things is core to OOP,
+and all of them can be used
+to do decidedly non-object-oriented programming.
+</p>
+<div class="figure"><img width="450" height="300"
+ alt="A command is given: 'Speak!' In response, a cat says 'Meow!'
+ and a dog says 'Woof!'"
+ src="img/speak.png">
+<p>
+Cats and dogs speak differently.
+</p>
+</div>
+<p>
+An object is just some data,
+structured to represent something real or conceptual.
+The core of object-oriented programming
+is that these objects dictate their own behavior.
+In the image above, someone has asked a cat and a dog to speak.
+They do so, but they do so differently.
+The cat says &ldquo;meow&rdquo;, while the dog says &ldquo;woof&rdquo;.
+We'll assume that they are not just shouting out some fixed statement,
+that the actual underlying activity might differ between them.
+This is the foundation upon which OOP is built.
+</p>
+<p>
+A programmer familiar with C++ might leap into action,
+creating an Animal base class inherited by two subclasses: Cat and Dog.
+This base class essentially declares an interface
+through a virtual function &ldquo;speak&rdquo;,
+which the subclasses make concrete.
+</p>
+<pre><code>#include &lt;iostream&gt;</code>
+<code>class Animal {</code>
+<code>public:</code>
+<code>    virtual void speak() = 0;</code>
+<code>};</code>
+<code>class Cat : public Animal {</code>
+<code>public:</code>
+<code>    void speak() {</code>
+<code>        std::cout << "Meow!" << std::endl;</code>
+<code>    }</code>
+<code>};</code>
+<code>class Dog : public Animal {</code>
+<code>public:</code>
+<code>    void speak() {</code>
+<code>        std::cout << "Woof!" << std::endl;</code>
+<code>    }</code>
+<code>};</code>
+<code>void f(Animal &x) {</code>
+<code>    x.speak();</code>
+<code>}</code>
+<code>int main() {</code>
+<code>    Cat cat = Cat();</code>
+<code>    Dog dog = Dog();</code>
+<code>    f(cat);</code>
+<code>    f(dog);</code>
+<code>    return 0;</code>
+<code>}</code></pre>
+<p>
+This is just about a minimal object-oriented implementation
+of this system.
+The function &ldquo;f&rdquo; takes an Animal as a parameter,
+and a Cat or a Dog will behave appropriately in context.
+Any individual object passed in
+will smuggle along with it some knowledge of how it should act.
+This is the fundamental aspect of OOP:
+you do not act on objects.
+The objects do the acting.
+</p>
+<p>
+With that said,
+I want to emphasize that OOP is not a collection of language features.
+The same sort of thing can be done in plain C,
+writing object-oriented code
+in a language that many would not associate with the paradigm.
+</p>
+<pre><code>#include &lt;stdio.h&gt;</code>
+<code>struct animal {</code>
+<code>    void (*speak)(void);</code>
+<code>};</code>
+<code>void speak_cat(void) {</code>
+<code>    printf("Meow!\n");</code>
+<code>}</code>
+<code>void speak_dog(void) {</code>
+<code>    printf("Woof!\n");</code>
+<code>}</code>
+<code>void f(struct animal x) {</code>
+<code>    x.speak();</code>
+<code>}</code>
+<code>int main(void) {</code>
+<code>    struct animal cat = (struct animal){speak_cat};</code>
+<code>    struct animal dog = (struct animal){speak_dog};</code>
+<code>    f(cat);</code>
+<code>    f(dog);</code>
+<code>    return 0;</code>
+<code>}</code>
+</pre>
+<p>
+Here still, the individual objects are in charge of their own actions.
+This is still object-oriented programming.
+The mechanism is different.
+Rather than building a hierarchy of related classes,
+only the interface and functionality is specified.
+Creating objects is a matter of assembling functionalities
+into individuals, using function pointers.
+Yet still it is the individual objects that act.
+The functions into which they are passed
+have no way of knowing what they will do.
+</p>
+<p>
+I would say that &ldquo;object-oriented&rdquo;
+is not a type of programming language.
+Rather it is a type of programming.
+You need only two things in order to do it.
+You need structure,
+and you need the ability to carry functionality within that structure.
+Think about Lua.
+In Lua, basically the only built-in data structure
+is the &ldquo;table&rdquo;,
+which we can think of as an associative array, a dictionary.
+Functions can be passed around.
+We have object-oriented code.
+</p>
+<pre><code>function speak_cat()</code>
+<code>    print("Meow!")</code>
+<code>end</code>
+<code>function speak_dog()</code>
+<code>    print("Woof!")</code>
+<code>end</code>
+<code>function f(x)</code>
+<code>    x.speak()</code>
+<code>end</code>
+<code>cat = {["speak"]=speak_cat}</code>
+<code>dog = {["speak"]=speak_dog}</code>
+<code>f(cat)</code>
+<code>f(dog)</code>
+</pre>
+<p>
+Everything put on top of this is simply to make life easier.
+Sometimes it succeeds in that.
+Rather than getting hung up on the specific implementation details
+of a given language,
+I feel it is important to take a step back.
+Understand what it is you are trying to accomplish.
+Write code that solves the problem in a way that makes sense to you.
+Do not start with the mindset
+that you will be doing object-oriented programming
+and therefore need an &ldquo;object-oriented programming language&rsquo;
+like C++ or Java.
+Start with the problem.
+Solve the problem.
+If your data is structured and carrying around functionality,
+then congratulations, you have written object-oriented code.
+</p>
+</article>
+<footer>
+<p><a
+     id="cy-effective-orcid-url"
+     class="underline"
+     href="https://orcid.org/0000-0002-7056-5950"
+     target="orcid.widget"
+     rel="me noopener noreferrer"
+     style="vertical-align: top">
+    <img
+      src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+      style="width: 1em; margin-inline-start: 0.5em"
+      alt="ORCID iD icon"/>
+    https://orcid.org/0000-0002-7056-5950
+  </a></p>
+</footer>
+</body>
+</html>
