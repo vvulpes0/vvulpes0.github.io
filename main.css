@@ -15,6 +15,28 @@
 	--codefg:#ccc;
 	--linum:#588;
 }
+@media (prefers-color-scheme: light) {
+:root {
+	--bg:#fff;
+	--body:#333;
+	--head:#000;
+	--link:#008;
+	--actlink:#468;
+	--codebg:#ccc;
+	--codefg:#000;
+	--linum:#468;
+}
+#dark-mode:checked ~ #light-mode:not(:checked) ~ #colorscheme {
+	--bg:#222;
+	--body:#ccc;
+	--head:#fff;
+	--link:#fc8;
+	--actlink:#fec;
+	--codebg:#000;
+	--codefg:#ccc;
+	--linum:#588;
+}
+}
 #light-mode:checked ~ #colorscheme {
 	--bg:#fff;
 	--body:#333;
