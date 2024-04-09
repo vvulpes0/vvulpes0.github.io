@@ -5,42 +5,87 @@
 	font-weight:normal;
 	float:none;
 }
+:root {
+	--bg:#222;
+	--body:#ccc;
+	--head:#fff;
+	--link:#fc8;
+	--actlink:#fec;
+	--codebg:#000;
+	--codefg:#ccc;
+	--linum:#588;
+}
+#light-mode:checked ~ #colorscheme {
+	--bg:#fff;
+	--body:#333;
+	--head:#000;
+	--link:#008;
+	--actlink:#468;
+	--codebg:#ccc;
+	--codefg:#000;
+	--linum:#468;
+}
 html{
 	font-family:Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
 	font-size:100%;
-	background:#222;
-	color:#ccc;
+	background:var(--bg);
+	color:var(--body);
 	line-height:1.4;
 	width:100%;
 }
-body{
+#colorscheme {
+	position:absolute;
+	top:0;
+	left:0;
+	background:var(--bg);
+	color:var(--body);
+	min-height:100vh;
+	width:100%;
+	z-index:0;
+}
+#main-content{
 	max-width:42em;
 	margin:0 auto;
 	padding:1em 3em;
+}
+input[name="dark-mode"] {
+	appearance:none;
+	position:absolute;
+	top:0;
+	left:0;
+}
+.dark-mode-selector {
+	position:relative;
+	top:1em;
+	left:1em;
+	z-index:2;
+}
+.dark-mode-selector span span {
+	display:none;
 }
 header{
 	text-align:center;
 	line-height:0.8;
 	padding-bottom:1em;
-	border-bottom:1px dashed #ccc;
+	border-bottom:1px dashed var(--body);
 }
 h1{
-	color:#fff;
+	color:var(--head);
 	margin:1em 0 0.25em;
 	font-size:200%;
 }
 h2{
-	color:#fff;
+	color:var(--head);
 	margin-top:1em;
 	font-size:150%
 }
 a{
-	color:#fc8;
+	color:var(--link);
 	text-decoration:none;
 }
 a:hover, a:active {
-	color:#fec;
-	border:0.125em solid #ccc;
+	color:var(--actlink);
+	border:0.125em solid var(--body);
 	padding:0.125em;
 	margin:-0.25em;
 }
@@ -65,7 +110,7 @@ article pre{
 	max-width:90%;
 }
 .figure img{
-	border:5px solid #ccc;
+	border:5px solid var(--body);
 	display:inline;
 	max-width:100%;
 	height:auto;
@@ -76,8 +121,8 @@ article pre{
 pre{
 	max-width:100%;
 	overflow:scroll;
-	background-color:#000;
-	color:#ccc;
+	background-color:var(--codebg);
+	color:var(--codefg);
 	padding:1em 0;
 	counter-reset:line;
 }
@@ -86,7 +131,7 @@ pre code{
 }
 pre code::before{
 	content:counter(line);
-	color:#588;
+	color:var(--linum);
 	display:inline-block;
 	text-align:right;
 	width:2em;
@@ -98,15 +143,15 @@ section li::before{
 	text-align:center;
 	font-size:150%;
 	width:1rem;
-	overflow:none;
-	color:#fc8;
+	overflow:visible;
+	color:var(--link);
 }
 section li{
 	text-indent:-1em;
 	list-style:none;
 }
 footer {
-	border-top:1px dashed #ccc;
+	border-top:1px dashed var(--body);
 	padding-top:1em;
 	text-align:right;
 }

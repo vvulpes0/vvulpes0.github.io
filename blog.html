@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="alternate" type="application/rss+xml" title="RSS"
       href="https://dakotahlambert.com/rss.xml">
 <title>Dakotah Lambert</title>
-<link rel="stylesheet" type="text/css" href="/main.css" />
+<link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
+<label for="dark-mode" class="dark-mode-selector">
+  <span id="dark">🌕<span>Dark</span></span>
+</label>
+<input id="dark-mode" type="radio" name="dark-mode">
+<label for="light-mode" class="dark-mode-selector">
+  <span id="light">🔆<span>Light</span></span>
+</label>
+<input id="light-mode" type="radio" name="dark-mode">
+<div id="colorscheme">
+<div id="main-content">
 <header>
 <h1>Dakotah Lambert</h1>
 <p>collected musings</p>
@@ -47,9 +57,11 @@ with any particular language features.
     <img
       src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
       style="width: 1em; margin-inline-start: 0.5em"
-      alt="ORCID iD icon"/>
+      alt="ORCID iD icon">
     https://orcid.org/0000-0002-7056-5950
   </a></p>
 </footer>
+</div>
+</div>
 </body>
 </html>
