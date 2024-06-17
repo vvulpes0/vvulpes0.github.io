@@ -15,6 +15,16 @@
 	--codefg:#ccc;
 	--linum:#588;
 }
+#darklight:checked ~ #colorscheme {
+	--bg:#fff;
+	--body:#333;
+	--head:#000;
+	--link:#008;
+	--actlink:#468;
+	--codebg:#ccc;
+	--codefg:#000;
+	--linum:#468;
+}
 @media (prefers-color-scheme: light) {
 :root {
 	--bg:#fff;
@@ -26,7 +36,7 @@
 	--codefg:#000;
 	--linum:#468;
 }
-#dark-mode:checked ~ #light-mode:not(:checked) ~ #colorscheme {
+#darklight:checked ~ #colorscheme {
 	--bg:#222;
 	--body:#ccc;
 	--head:#fff;
@@ -36,16 +46,6 @@
 	--codefg:#ccc;
 	--linum:#588;
 }
-}
-#light-mode:checked ~ #colorscheme {
-	--bg:#fff;
-	--body:#333;
-	--head:#000;
-	--link:#008;
-	--actlink:#468;
-	--codebg:#ccc;
-	--codefg:#000;
-	--linum:#468;
 }
 html{
 	font-family:Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
