@@ -83,32 +83,32 @@ This base class essentially declares an interface
 through a virtual function &ldquo;speak&rdquo;,
 which the subclasses make concrete.
 </p>
-<pre><code>#include &lt;iostream&gt;</code>
-<code>class Animal {</code>
-<code>public:</code>
-<code>    virtual void speak() = 0;</code>
+<pre><code><span class="preproc">#include &lt;iostream&gt;</span></code>
+<code><span class="keyword">class</span> <span class="type">Animal</span> {</code>
+<code><span class="keyword">public</span>:</code>
+<code>    <span class="keyword">virtual</span> <span class="type">void</span> <span class="decl">speak</span>() = 0;</code>
 <code>};</code>
-<code>class Cat : public Animal {</code>
-<code>public:</code>
-<code>    void speak() {</code>
-<code>        std::cout &lt;&lt; "Meow!" &lt;&lt; std::endl;</code>
+<code><span class="keyword">class</span> <span class="type">Cat</span> : <span class="keyword">public</span> <span class="type">Animal</span> {</code>
+<code><span class="keyword">public</span>:</code>
+<code>    <span class="type">void</span> <span class="decl">speak</span>() {</code>
+<code>        std::cout &lt;&lt; <span class="string">"Meow!"</span> &lt;&lt; std::endl;</code>
 <code>    }</code>
 <code>};</code>
-<code>class Dog : public Animal {</code>
-<code>public:</code>
-<code>    void speak() {</code>
-<code>        std::cout &lt;&lt; "Woof!" &lt;&lt; std::endl;</code>
+<code><span class="keyword">class</span> <span class="type">Dog</span> : <span class="keyword">public</span> <span class="type">Animal</span> {</code>
+<code><span class="keyword">public</span>:</code>
+<code>    <span class="type">void</span> <span class="decl">speak</span>() {</code>
+<code>        std::cout &lt;&lt; <span class="string">"Woof!"</span> &lt;&lt; std::endl;</code>
 <code>    }</code>
 <code>};</code>
-<code>void f(Animal &x) {</code>
+<code><span class="type">void</span> <span class="decl">f</span>(<span class="type">Animal</span> &amp;<span class="decl">x</span>) {</code>
 <code>    x.speak();</code>
 <code>}</code>
-<code>int main() {</code>
-<code>    Cat cat = Cat();</code>
-<code>    Dog dog = Dog();</code>
+<code><span class="type">int</span> <span class="decl">main</span>() {</code>
+<code>    <span class="type">Cat</span> <span class="decl">cat</span> = <span class="type">Cat</span>();</code>
+<code>    <span class="type">Dog</span> <span class="decl">dog</span> = <span class="type">Dog</span>();</code>
 <code>    f(cat);</code>
 <code>    f(dog);</code>
-<code>    return 0;</code>
+<code>    <span class="keyword">return</span> 0;</code>
 <code>}</code></pre>
 <p>
 This is just about a minimal object-oriented implementation
@@ -128,25 +128,25 @@ The same sort of thing can be done in plain C,
 writing object-oriented code
 in a language that many would not associate with the paradigm.
 </p>
-<pre><code>#include &lt;stdio.h&gt;</code>
-<code>struct animal {</code>
-<code>    void (*speak)(void);</code>
+<pre><code><span class="preproc">#include &lt;stdio.h&gt;</span></code>
+<code><span class="keyword">struct</span> <span class="type">animal</span> {</code>
+<code>    <span class="type">void</span> (*<span class="decl">speak</span>)(<span class="type">void</span>);</code>
 <code>};</code>
-<code>void speak_cat(void) {</code>
-<code>    printf("Meow!\n");</code>
+<code><span class="type">void</span> <span class="decl">speak_cat</span>(<span class="type">void</span>) {</code>
+<code>    printf(<span class="string">"Meow!\n"</span>);</code>
 <code>}</code>
-<code>void speak_dog(void) {</code>
-<code>    printf("Woof!\n");</code>
+<code><span class="type">void</span> <span class="decl">speak_dog</span>(<span class="type">void</span>) {</code>
+<code>    printf(<span class="string">"Woof!\n"</span>);</code>
 <code>}</code>
-<code>void f(struct animal x) {</code>
+<code><span class="type">void</span> <span class="decl">f</span>(<span class="keyword">struct</span> <span class="type">animal</span> <span class="decl">x</span>) {</code>
 <code>    x.speak();</code>
 <code>}</code>
-<code>int main(void) {</code>
-<code>    struct animal cat = (struct animal){speak_cat};</code>
-<code>    struct animal dog = (struct animal){speak_dog};</code>
+<code><span class="type">int</span> <span class="decl">main</span>(<span class="type">void</span>) {</code>
+<code>    <span class="keyword">struct</span> <span class="type">animal</span> <span class="decl">cat</span> = (<span class="keyword">struct</span> <span class="type">animal</span>){speak_cat};</code>
+<code>    <span class="keyword">struct</span> <span class="type">animal</span> <span class="decl">dog</span> = (<span class="keyword">struct</span> <span class="type">animal</span>){speak_dog};</code>
 <code>    f(cat);</code>
 <code>    f(dog);</code>
-<code>    return 0;</code>
+<code>    <span class="keyword">return</span> 0;</code>
 <code>}</code>
 </pre>
 <p>
@@ -175,17 +175,17 @@ which we can think of as an associative array, a dictionary.
 Functions can be passed around.
 We have object-oriented code.
 </p>
-<pre><code>function speak_cat()</code>
-<code>    print("Meow!")</code>
-<code>end</code>
-<code>function speak_dog()</code>
-<code>    print("Woof!")</code>
-<code>end</code>
-<code>function f(x)</code>
+<pre><code><span class="keyword">function</span> <span class="decl">speak_cat</span>()</code>
+<code>    print(<span class="string">"Meow!"</span>)</code>
+<code><span class="keyword">end</span></code>
+<code><span class="keyword">function</span> <span class="decl">speak_dog</span>()</code>
+<code>    print(<span class="string">"Woof!"</span>)</code>
+<code><span class="keyword">end</span></code>
+<code><span class="keyword">function</span> <span class="decl">f</span>(<span class="decl">x</span>)</code>
 <code>    x.speak()</code>
-<code>end</code>
-<code>cat = {["speak"]=speak_cat}</code>
-<code>dog = {["speak"]=speak_dog}</code>
+<code><span class="keyword">end</span></code>
+<code><span class="decl">cat</span> = {[<span class="string">"speak"</span>]=speak_cat}</code>
+<code><span class="decl">dog</span> = {[<span class="string">"speak"</span>]=speak_dog}</code>
 <code>f(cat)</code>
 <code>f(dog)</code>
 </pre>

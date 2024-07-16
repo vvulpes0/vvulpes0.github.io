@@ -6,10 +6,28 @@
 <description>Formal language theory and more</description>
 <copyright>Copyright 2024, Dakotah Lambert</copyright>
 <language>en</language>
-<pubDate>Wed, 21 Feb 2024 02:11:00 +0100</pubDate>
+<pubDate>Mon, 15 Jul 2024 20:46:00 -0400</pubDate>
 <docs>https://www.rssboard.org/rss-specification</docs>
 <ttl>10080</ttl>
 <atom:link href="https://dakotahlambert.com/rss.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Sequential Ejection</title>
+<link>https://dakotahlambert.com/blog/20240715.html</link>
+<description>Often, a programmer will be faced with a sequence of data
+from which only certain elements should be retained
+for further processing.
+For example, in a game, one might have a list of entities
+and wish to keep only those that are alive and within the loading zone.
+Or in a text processing task,
+one might wish to select only records which begin with a valid date
+(per ISO 8601) within the past year.
+This is called a "filter" or "select" operation.
+We will walk through a few different ways that one might implement this,
+and discuss the implications of each.</description>
+<pubDate>Mon, 15 Jul 2024 20:46:00 -0400</pubDate>
+<category>Programming</category>
+<guid isPermaLink="false">tag:dakotahlambert.com,2024:rss.2</guid>
+</item>
 <item>
 <title>Object-Oriented Programming</title>
 <link>https://dakotahlambert.com/blog/20240221.html</link>

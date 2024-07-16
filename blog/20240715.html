@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="RSS"
+      href="https://dakotahlambert.com/rss.xml">
+<title>Dakotah Lambert</title>
+<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+<label for="darklight" class="dark-mode-selector">
+  <span id="dark">&#x1F315;|&#x1F506;<span>Swap dark/light</span></span>
+</label>
+<input type="checkbox" id="darklight" name="darklight">
+<div id="colorscheme">
+<div id="main-content">
+<header>
+<h1>Dakotah Lambert</h1>
+<p>collected musings</p>
+</header>
+<nav>
+<h2>Contents</h2>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/PDF/cv.pdf">CV</a></li>
+<li><a href="/#interests">Interests</a></li>
+<li><a href="/#projects">Projects</a></li>
+<li><a href="/#publications">Publications</a></li>
+<li><a href="/blog.html">Blog</a></li>
+</ul>
+</nav>
+<article>
+<h2><a href="/blog/20240715.html">Sequential Ejection</a></h2>
+<p class="date">2024 July 15 at 20:46</p>
+<p>Often, a programmer will be faced with a sequence of data
+from which only certain elements should be retained
+for further processing.
+For example, in a game, one might have a list of entities
+and wish to keep only those that are alive and within the loading zone.
+Or in a text processing task,
+one might wish to select only records
+which begin with a valid date (per ISO 8601)
+within the past year.
+This is called a &ldquo;filter&rdquo; or &ldquo;select&rdquo; operation.
+We will walk through a few different ways
+that one might implement this,
+and discuss the implications of each.
+The example code is written in the C programming language,
+because it cleanly distinguishes data
+from references to that data.
+However, the data structures used here
+are not intended to be generically applicable.
+</p>
+<p>First, let us lay down some base assumptions.
+The data exists in memory as an ordered sequence.
+The original, unfiltered data will not be needed later;
+in other words, in-place operation is allowed.
+Certainly an out-of-place filter that preserves the original data
+can run in linear time and auxiliary space,
+at least when the sequence is composed of references
+or other cheaply copied types.
+We explore the question of how efficient the operation can be
+when allowed to overwrite the original data.
+The examples here will use a sequence of integers.
+</p>
+<p>The target that we will eventually reach is as follows.
+</p>
+<pre><code><span class="type">void</span> <span class="decl">filter</span>(<span class="type">_Bool</span>(*<span class="decl">is_valid</span>)(<span class="type">int</span>), <span class="keyword">struct</span> <span class="type">IntArray</span> *<span class="decl">arr</span>) {</code>
+<code>    <span class="type">size_t</span> <span class="decl">next_free</span> = 0;</code>
+<code>    <span class="keyword">for</span> (<span class="type">size_t</span> <span class="decl">i</span> = 0; i &lt; arr-&gt;size; i++) {</code>
+<code>        <span class="keyword">if</span> (!is_valid(arr-&gt;data[i])) <span class="keyword">continue</span>;</code>
+<code>        arr-&gt;data[next_free] = arr-&gt;data[i];</code>
+<code>        next_free += 1;</code>
+<code>    }</code>
+<code>    arr-&gt;size = next_free;</code>
+<code>}</code></pre>
+
+<h3 id="linked-list"><a href="#linked-list">Linked-List Input</a></h3>
+<p>For this section, and only this section,
+we&rsquo;ll assume that the input is given as a linked list.
+The list structure will be as follows:
+</p>
+<pre><code><span class="keyword">struct</span> <span class="type">IntList</span> {</code>
+<code>    <span class="keyword">struct</span> <span class="type">IntList</span> *<span class="decl">tail</span>;</code>
+<code>    <span class="type">int</span> <span class="decl">value</span>;</code>
+<code>};</code></pre>
+<p>That is, given a node-pointer <code>n</code>,
+the next node is <code>n-&gt;tail</code>
+and the contained data is <code>n-&gt;value</code>.
+An empty list is <code>NULL</code>.
+The intended signature for our filter function is as follows:
+</p>
+<pre><code><span class="keyword">struct</span> <span class="type">IntList</span> *<span class="decl">filter</span>(<span class="type">_Bool</span>(*<span class="decl">is_valid</span>)(<span class="type">int</span>), <span class="keyword">struct</span> <span class="type">IntList</span> * <span class="decl">head</span>);</code></pre>
+<p>This declares the function &ldquo;filter&rdquo;
+to take two arguments.
+The first is a function <code>is_valid</code>
+that maps a data point (the <code>int</code>)
+to a Boolean value (the <code>_Bool</code>)
+that represents whether the value should be retained (true)
+or discarded (false).
+The second argument is the head of the list.
+Finally, our function must return a new head-pointer,
+in case some initial elements are discarded.
+</p>
+<p>Linked lists do not support efficient random access,
+so a good solution will read the list in one linear stream.
+We will maintain a pointer to the previous link-point,
+be that the list head or the tail field
+of the most recently retained node.
+At each node, we test whether it is valid.
+If the data is valid and should be retained,
+then the link-point is updated and we advance to the next node.
+Otherwise, we create a link from the link point
+to the current node&rsquo;s tail,
+thereby removing the current node from the structure,
+and then free the current node.
+</p>
+<pre><code><span class="preproc">#include &lt;stdlib.h&gt;</span></code>
+<code><span class="keyword">struct</span> <span class="type">IntList</span> *<span class="decl">filter</span>(<span class="type">_Bool</span>(*<span class="decl">is_valid</span>)(<span class="type">int</span>), <span class="keyword">struct</span> <span class="type">IntList</span> *<span class="decl">head</span>) {</code>
+<code>    <span class="keyword">struct</span> <span class="type">IntList</span> **<span class="decl">link_point</span> = &amp;head;</code>
+<code>    <span class="keyword">struct</span> <span class="type">IntList</span>  *<span class="decl">current</span>    =  head;</code>
+<code>    <span class="keyword">while</span> (current) {</code>
+<code>        <span class="keyword">if</span> (is_valid(current-&gt;value)) {</code>
+<code>            link_point = &amp;(current-&gt;tail);</code>
+<code>        } <span class="keyword">else</span> {</code>
+<code>            *link_point = current-&gt;tail;</code>
+<code>            free(current);</code>
+<code>        }</code>
+<code>        current = *link_point;</code>
+<code>    }</code>
+<code>    <span class="keyword">return</span> head;</code>
+<code>}</code></pre>
+<p>Suppose, for example, that we have a linked list of four elements,
+and we wish to retain the second and fourth.
+The algorithm proceeds as depicted below,
+streaming through the list in a single pass
+and freeing unnecessary elements as it goes.
+This runs in &#920;(<i>n</i>) time for a list of <i>n</i> elements,
+using only two pointers&rsquo; worth of auxiliary space.
+</p>
+<div class="figure"><a href="img/linked-list-filter.txt" class="noborder"><img width="450" height="600"
+ alt="A linked list having its first and third elements removed."
+ src="img/linked-list-filter.png"></a>
+<p>The operation of the above algorithm.
+At each step, the current node is boxed.
+Nodes and links that are deleted are shown crossed out,
+and newly created links are shown as a distinct wide kind of arrow.
+</p>
+</div>
+
+<h3 id="array-port"><a href="#array-port">Na&#239;ve Application to Arrays</a></h3>
+<p>From this point,
+we assume that the input is not a linked list but a dynamic array.
+Arrays use contiguous storage to offer efficient random access,
+but the flipside of this
+is that the insertion or removal of an interior element
+requires shifting the later elements around.
+The dynamic array structure used for the remainder of this article
+is as follows:
+</p>
+<pre><code><span class="preproc">#include &lt;stddef.h&gt;</span></code>
+<code><span class="keyword">struct</span> <span class="type">IntArray</span> {</code>
+<code>    <span class="type">int</span> *<span class="decl">data</span>;</code>
+<code>    <span class="type">size_t</span> <span class="decl">size</span>;</code>
+<code>    <span class="type">size_t</span> <span class="decl">capacity</span>;</code>
+<code>};</code></pre>
+<p>
+For the sake of clarity,
+in-place array-based filter procedures will not return output.
+All modifications are contained within the array,
+and the outer structure need not ever change.
+After this change of return type and a suitable change of argument type,
+we can define a new filter.
+</p>
+<pre><code><span class="type">void</span> <span class="decl">filter</span>(<span class="type">_Bool</span>(*<span class="decl">is_valid</span>)(<span class="type">int</span>), <span class="keyword">struct</span> <span class="type">IntArray</span> *<span class="decl">arr</span>) {</code>
+<code>    <span class="keyword">for</span> (<span class="type">size_t</span> <span class="decl">i</span> = 0; i &lt; arr-&gt;size; i++) {</code>
+<code>        <span class="keyword">if</span> (is_valid(arr-&gt;data[i])) <span class="keyword">continue</span>;</code>
+<code>        <span class="keyword">for</span> (<span class="type">size_t</span> <span class="decl">j</span> = i+1; j &lt; arr-&gt;size; j++) {</code>
+<code>            arr-&gt;data[j-1] = arr-&gt;data[j];</code>
+<code>        }</code>
+<code>        arr-&gt;size -= 1;</code>
+<code>        i -= 1;</code>
+<code>    }</code>
+<code>}</code></pre>
+<p>Here, every removal requires that all later elements be moved down.
+Notice that the loop counter is also decremented in this situation,
+as the next element is moved into the current location.
+When the loop counter updates again,
+it will return to examine that next element.
+</p>
+<p>If no element is retained,
+then the first removal will move <i>n</i>&minus;1 elements,
+the second will remove <i>n</i>&minus;2 elements,
+and so on, until eventually no elements remain to be moved.
+In other words, the number of copies
+is the sum of the first <i>n</i> natural numbers.
+Although we still maintain only a constant number of auxiliary pointers,
+the time complexity is now &#920;(<i>n</i><sup>2</sup>).
+</p>
+<p>Next, we explore two ways to get back
+the good time-complexity of the linked-list implementation.
+</p>
+
+<h3 id="shuffle"><a href="#shuffle">Saving Time Through Shuffling</a></h3>
+<p>The first attempt at filtering arrays directly mirrored
+the linked-list implementation.
+This means that we took on the cost of keeping data contiguous,
+but did not take advantage of the random-access potential of arrays.
+If the order of the data is not important,
+then changing the arrangement can improve runtime significantly
+by moving exactly one element per removal.
+</p>
+<pre><code><span class="type">void</span> <span class="decl">filter</span>(<span class="type">_Bool</span>(*<span class="decl">is_valid</span>)(<span class="type">int</span>), <span class="keyword">struct</span> <span class="type">IntArray</span> *<span class="decl">arr</span>) {</code>
+<code>    <span class="keyword">for</span> (<span class="type">size_t</span> <span class="decl">i</span> = 0; i &lt; arr-&gt;size; i++) {</code>
+<code>        <span class="keyword">if</span> (is_valid(arr-&gt;data[i])) <span class="keyword">continue</span>;</code>
+<code>        arr-&gt;data[i] = arr-&gt;data[arr-&gt;size - 1];</code>
+<code>        arr-&gt;size -= 1;</code>
+<code>        i -= 1;</code>
+<code>    }</code>
+<code>}</code></pre>
+<p>The difference between this and the na&#239;ve port
+is that instead of copying the entire remaining array,
+only the final element is moved.
+Again, this should only be used when the order of the data
+is immaterial to subsequent operations,
+as the order is not stable.
+If the input array contains the natural numbers from 1 to 10,
+in order, and even numbers are retained,
+then the output is <code>{10,2,8,4,6}</code>.
+</p>
+<p>On the other hand,
+this is a simple way to return to the &#920;(<i>n</i>)
+time-complexity without incurring any additional space-complexity.
+</p>
+<h3 id="best"><a href="#best">Stable, Small, and Speedy</a></h3>
+<p>The previous array-based filters leave retained elements in-place,
+and they remove elements by moving one or more unchecked elements
+into their place.
+If instead it is the retained elements that move,
+then we can get all of the desired properties at once.
+</p>
+<pre><code><span class="type">void</span> <span class="decl">filter</span>(<span class="type">_Bool</span>(*<span class="decl">is_valid</span>)(<span class="type">int</span>), <span class="keyword">struct</span> <span class="type">IntArray</span> *<span class="decl">arr</span>) {</code>
+<code>    <span class="type">size_t</span> <span class="decl">next_free</span> = 0;</code>
+<code>    <span class="keyword">for</span> (<span class="type">size_t</span> <span class="decl">i</span> = 0; i &lt; arr-&gt;size; i++) {</code>
+<code>        <span class="keyword">if</span> (!is_valid(arr-&gt;data[i])) <span class="keyword">continue</span>;</code>
+<code>        arr-&gt;data[next_free] = arr-&gt;data[i];</code>
+<code>        next_free += 1;</code>
+<code>    }</code>
+<code>    arr-&gt;size = next_free;</code>
+<code>}</code></pre>
+<p>Retained elements are moved over earlier discarded elements,
+until the input stream is exhausted.
+The size is changed one time, at the end.
+As this algorithm proceeds via a single stream,
+it has a &#920;(<i>n</i>) time-complexity
+and still requires only a constant number of auxiliary pointers.
+As the retained elements are condensed but not reordered,
+the resulting filter is stable.
+This is the best choice.
+</p>
+
+</article>
+<footer>
+<p><a
+     id="cy-effective-orcid-url"
+     class="underline"
+     href="https://orcid.org/0000-0002-7056-5950"
+     target="orcid.widget"
+     rel="me noopener noreferrer"
+     style="vertical-align: top">
+    <img
+      src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+      style="width: 1em; margin-inline-start: 0.5em"
+      alt="ORCID iD icon">
+    https://orcid.org/0000-0002-7056-5950
+  </a></p>
+</footer>
+</div>
+</div>
+</body>
+</html>

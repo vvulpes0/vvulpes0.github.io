@@ -14,6 +14,11 @@
 	--codebg:#000;
 	--codefg:#ccc;
 	--linum:#588;
+	--decl:#fec;
+	--keyword:#fc8;
+	--preproc:#88a;
+	--string:#4a4;
+	--type:#c8a;
 }
 #darklight:checked ~ #colorscheme {
 	--bg:#fff;
@@ -24,6 +29,11 @@
 	--codebg:#ccc;
 	--codefg:#000;
 	--linum:#468;
+	--decl:#333;
+	--keyword:#008;
+	--preproc:#544;
+	--string:#050;
+	--type:#920;
 }
 @media (prefers-color-scheme: light) {
 :root {
@@ -35,6 +45,11 @@
 	--codebg:#ccc;
 	--codefg:#000;
 	--linum:#468;
+	--decl:#333;
+	--keyword:#008;
+	--preproc:#544;
+	--string:#050;
+	--type:#920;
 }
 #darklight:checked ~ #colorscheme {
 	--bg:#222;
@@ -45,6 +60,11 @@
 	--codebg:#000;
 	--codefg:#ccc;
 	--linum:#588;
+	--decl:#fec;
+	--keyword:#fc8;
+	--preproc:#88a;
+	--string:#4a4;
+	--type:#c8a;
 }
 }
 html{
@@ -101,11 +121,16 @@ h2{
 	margin-top:1em;
 	font-size:150%
 }
+h3{
+	color:var(--head);
+	margin-top:1em;
+	font-size:125%
+}
 a{
 	color:var(--link);
 	text-decoration:none;
 }
-a:hover, a:active {
+a:hover:not(.noborder), a:active:not(.noborder) {
 	color:var(--actlink);
 	border:0.125em solid var(--body);
 	padding:0.125em;
@@ -158,6 +183,23 @@ pre code::before{
 	text-align:right;
 	width:2em;
 	padding:0 1em 0 0;
+}
+pre .decl {
+	font-style:italic;
+	color:var(--decl);
+}
+pre .keyword {
+	font-weight:bold;
+	color:var(--keyword);
+}
+pre .preproc {
+	color:var(--preproc);
+}
+pre .string {
+	color:var(--string);
+}
+pre .type {
+	color:var(--type);
 }
 section li::before{
 	content:"»";

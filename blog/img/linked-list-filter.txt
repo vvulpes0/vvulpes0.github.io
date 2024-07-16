@@ -1,0 +1,11 @@
+A four-panel breakdown of a filtering algorithm for linked lists.  Each panel depicts the variables "head" and "link_point", and the "current" node is indicated. The initial list is four nodes long, followed by a "NULL" tail, and two elements are to be removed: the first and the third.
+
+In the first panel, "link_point" points to "head", which in turn points to the first element. This first element is current. It is marked for removal. The target of "link_point" (that is, "head") is redirected to the tail of this node, and the current node is freed.
+
+In the second panel, "link_point" still points to "head", which in turn now points to the second element. This second element is current. It is retained, so the link_point is redirected from "head" to the tail-field of this second node.
+
+In the third panel, "link_point" points to the tail-field of the second node, "head" points to the second node itself, and the third node is current. This third node is marked for removal. The target of "link_point" (that is, the tail-field of the second element) is redirected to the tail of this current node, and the current node is freed.
+
+In the fourth and final panel, "link_point" remains pointing to the tail-field of the second node, "head" remains pointing to the second node itself, and now the fourth node is current. This fourth node is retained, so the link_point is redirected to the tail-field of this final node.
+
+This exhausts the list elements and the list has been filtered.
