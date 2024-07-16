@@ -91,7 +91,7 @@ and the contained data is <code>n-&gt;value</code>.
 An empty list is <code>NULL</code>.
 The intended signature for our filter function is as follows:
 </p>
-<pre><code><span class="keyword">struct</span> <span class="type">IntList</span> *<span class="decl">filter</span>(<span class="type">_Bool</span>(*<span class="decl">is_valid</span>)(<span class="type">int</span>), <span class="keyword">struct</span> <span class="type">IntList</span> * <span class="decl">head</span>);</code></pre>
+<pre><code><span class="keyword">struct</span> <span class="type">IntList</span> *<span class="decl">filter</span>(<span class="type">_Bool</span>(*<span class="decl">is_valid</span>)(<span class="type">int</span>), <span class="keyword">struct</span> <span class="type">IntList</span> *<span class="decl">head</span>);</code></pre>
 <p>This declares the function &ldquo;filter&rdquo;
 to take two arguments.
 The first is a function <code>is_valid</code>
