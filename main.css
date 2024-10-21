@@ -143,8 +143,14 @@ nav li{
 	display:inline-block;
 	margin:0 1em 0 0;
 }
-article p{
+p{
 	margin:0 0 1em 0;
+}
+p.preview{
+	margin:0;
+}
+header p:last-of-type {
+	margin:0;
 }
 article pre{
 	margin:0 0 1em 0;
