@@ -129,8 +129,15 @@ h3{
 a{
 	color:var(--link);
 	text-decoration:none;
+	border-bottom:1px dotted var(--body);
 }
-a:hover:not(.noborder), a:active:not(.noborder) {
+a:hover:not(.noborder), a:active:not(.noborder), a:focus:not(.noborder) {
+	color:var(--actlink);
+	border:0.125em solid var(--body);
+	padding:0.125em;
+	margin:-0.25em;
+}
+label:has(+input:focus) {
 	color:var(--actlink);
 	border:0.125em solid var(--body);
 	padding:0.125em;
