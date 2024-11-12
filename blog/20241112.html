@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="RSS"
+      href="https://dakotahlambert.com/rss.xml">
+<title>Dakotah Lambert</title>
+<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+<label for="darklight" class="dark-mode-selector">
+  <span id="dark">&#x1F315;|&#x1F506;<span>Swap dark/light</span></span
+></label>
+<input type="checkbox" id="darklight" name="darklight">
+<div id="colorscheme">
+<div id="main-content">
+<header>
+<h1>Dakotah Lambert</h1>
+<p>collected musings</p>
+</header>
+<nav>
+<h2>Contents</h2>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/PDF/cv.pdf">CV</a></li>
+<li><a href="/#interests">Interests</a></li>
+<li><a href="/#projects">Projects</a></li>
+<li><a href="/#publications">Publications</a></li>
+<li><a href="/#talks">Talks</a></li>
+<li><a href="/blog.html">Blog</a></li>
+</ul>
+</nav>
+<article>
+<h2><a href="/blog/20241110.html">Foundations:
+    The &lambda;-Calculus</a></h2>
+<p class="date">2024 Nov 12 at 01:05</p>
+<nav>
+<h3>Post Contents</h3>
+<ul>
+<li><a href="#propositional-logic">Propositional Logic</a></li>
+<li><a href="#natural-numbers">Natural Numbers</a></li>
+<li><a href="#integers">Integers</a></li>
+<li><a href="#lists">Lists</a></li>
+<li><a href="#recursion">Recursion</a></li>
+<li><a href="#directions">Directions</a></li>
+</ul>
+</nav>
+<p>Many are familiar with the concept of the Turing machine,
+the mathematical model of computation that gives us the phrase
+&ldquo;Turing Complete&rdquo;.
+A Turing machine is built of several parts:
+a finite alphabet of symbols,
+an infinite tape divided into cells marked by these symbols,
+a read/write head that can modify the tape,
+and a finite set of control states
+that determine what should be written
+and how the tape should be moved
+depending on what is read.
+Less familiar but much simpler
+is the &lambda;-calculus of Alonzo Church.
+Equivalent in expressive power to the Turing machine,
+the &lambda;-calculus has only
+the creation and application of single-argument functions.
+</p>
+<ul>
+<li>An identifier <i>x</i> is an expression representing a parameter</li>
+<li>If <i>E</i> is an expression and <i>x</i> an identifier,
+  then (&lambda;<i>x</i>.<i>E</i>) is an expression
+  representing a function.</li>
+<li>If <i>E</i> and <i>F</i> are expressions,
+  then (<i>EF</i>) is an expression representing the application
+  of <i>E</i> to <i>F</i>.</li>
+<li>Nothing else is an expression.</li>
+</ul>
+<p>To improve readability by avoiding excessive parentheses,
+function application is associated to the left:
+<i>wxyz</i>&nbsp;&#8801;&nbsp;(((<i>wx</i>)<i>y</i>)<i>z</i>).
+Further, parentheses are omitted from functions
+that are created but not applied:
+&lambda;<i>f</i>.&lambda;<i>x</i>.&lambda;<i>y</i>.<i>fyx</i
+>&nbsp;&#8801;&nbsp;(&lambda;<i>f</i>.(&lambda;<i
+>x</i>.(&lambda;<i>y</i>.((<i>fy</i>)<i>x</i>)))),
+distinct from
+&lambda;<i>f</i>.&lambda;<i>x</i>.(&lambda;<i>y</i>.<i>fy</i>)<i>x</i
+>&nbsp;&#8801;&nbsp;(&lambda;<i>f</i>.(&lambda;<i>x</i
+>.(&lambda;<i>y</i>.(<i>fy</i>))<i>x</i>)).
+</p>
+<p>Programs are built from data and transformations.
+In a high-level language,
+the job of a programmer is to define
+the structure of relevant objects
+and some sequence of valid transformations
+to convert input states into desired output states.
+This structure applies to all computational formalisms.
+For a Turing machine,
+objects must be encoded as some linear sequence of symbols on the tape.
+For the &lambda;-calculus,
+objects must be encoded as some sort of single-argument function.
+Here, we&rsquo;ll explore representations of some basic objects.
+</p>
+
+<h3 id="propositional-logic"><a href="#propositional-logic"
+>Propositional Logic</a></h3>
+<p>Arguably the simplest data structure is the humble Boolean,
+with two distinct values: true and false.
+How might one represent a Boolean value as a single-argument function?
+To answer this, consider how Boolean values are used.
+Typically, they are used in conditional expressions:
+if some condition <i>C</i> holds, then <i>X</i>, else <i>Y</i>.
+Instead of defining true and false as atomic values,
+we can define them in terms of this conditional structure.
+If <i>C</i> is a Boolean value,
+we can have <i>CXY</i> produce <i>X</i> when <i>C</i> is true,
+and produce <i>Y</i> when <i>C</i> is false.
+</p>
+<p>This looks like we are considering two-argument functions,
+but we need not take more than one at a time.
+Let us define the Boolean value &ldquo;true&rdquo; as <b>T</b>.
+We want <b>T</b><i>XY</i> to be <i>X</i>.
+In other words, we want (<b>T</b><i>X</i>)
+to be a function of one argument which returns <i>X</i>
+no matter its input:
+<b>T</b>&nbsp;&#8801;&nbsp;&lambda;<i>x</i>.&lambda;<i>y</i>.<i>x</i>.
+In action:
+<b>T</b><i>XY</i
+>&nbsp;&#8801;&nbsp;(&lambda;<i>x</i>.&lambda;<i>y</i>.<i>x</i>)<i>XY</i
+>&nbsp;&#8801;&nbsp;(&lambda;<i>y</i>.<i>X</i>)<i>Y</i
+>&nbsp;&#8801;&nbsp;<i>X</i>.
+(This process of selecting an argument
+and instantiating it inside the function body
+is called &beta;-reduction.)
+Similarly, <b>F</b> selects the second of the two arguments:
+<b>F</b>&nbsp;&#8801;&nbsp;&lambda;<i>x</i>.&lambda;<i>y</i>.<i>y</i>.
+In action:
+<b>F</b><i>XY</i
+>&nbsp;&#8801;&nbsp;(&lambda;<i>x</i>.&lambda;<i>y</i>.<i>y</i>)<i>XY</i
+>&nbsp;&#8801;&nbsp;(&lambda;<i>y</i>.<i>y</i>)<i>Y</i
+>&nbsp;&#8801;&nbsp;<i>Y</i>.
+</p>
+<p>Boolean combinators such AND, OR and NOT,
+are naturally two-argument functions.
+First consider the OR combinator, which we will denote &#8744;.
+Recall that Booleans are essentially
+two-argument functions that represent if-then-else constructions.
+It should be that &#8744;<i>PQ</i> is true if <i>P</i> is true,
+else it is true if <i>Q</i> is true and false otherwise.
+In fully expanded form:
+&#8744;<i>PQ</i>&nbsp;&#8801;&nbsp;<i>P</i><b>T</b>(<i>Q</i><b>TF</b>).
+Notice, however, that (<i>Q</i><b>TF</b>) is equivalent to <i>Q</i>:
+if <i>Q</i>&nbsp;&#8801;&nbsp;<b>T</b> then <b>T</b> is selected,
+and if <i>Q</i>&nbsp;&#8801;&nbsp;<b>F</b> then <b>F</b> is selected,
+so assuming <i>Q</i> is a Boolean value,
+we can simplify this definition to
+&#8744;<i>PQ</i>&nbsp;&#8801;&nbsp;<i>P</i><b>T</b><i>Q</i>.
+Notice also that, if <i>P</i> is a Boolean value
+and selects the <b>T</b> here,
+then <i>P</i> must have been true;
+in other words, this simplifies further to
+&#8744;<i>PQ</i>&nbsp;&#8801;&nbsp;<i>PPQ</i>.
+</p>
+<p>
+Doing &beta;-reduction in reverse,
+we can &ldquo;unapply&rdquo; the function one argument at a time.
+This is called &beta;-abstraction:
+If &#8744;<i>PQ</i>&nbsp;&#8801;&nbsp;<i>PPQ</i>,
+then &#8744;<i>PQ</i>&nbsp;&#8801;&nbsp;(&lambda;q.<i>PPq</i>)<i>Q</i>.
+In other words,
+&#8744;<i>P</i>&nbsp;&#8801;&nbsp;&lambda;q.<i>PPq</i>.
+After another round of &beta;-abstraction,
+given &#8744;<i>P</i>&nbsp;&#8801;&nbsp;&lambda;q.<i>PPq</i>
+we derive
+&#8744;<i>P</i>&nbsp;&#8801;&nbsp;(&lambda;p.&lambda;q.<i>ppq</i>)<i>P</i>.
+In other words, &#8744;&nbsp;&#8801;&nbsp;&lambda;p.&lambda;q.<i>ppq</i>.
+Whenever we see a wrapped application &lambda;<i>x</i>.<i>Ex</i>,
+where this <i>x</i> does not appear in <i>E</i>,
+we can apply a rule called &eta;-reduction
+to transform this into just <i>E</i>.
+So &#8744;&nbsp;&#8801;&nbsp;&lambda;<i>p</i>.<i>pp</i>.
+</p>
+<p>Similarly, AND (denoted &#8743;) can be defined as
+&#8743;&nbsp;&#8801;&nbsp;&lambda;<i>p</i>.&lambda;<i>q</i>.<i>pqp</i>.
+If the first argument is false,
+it should select something falsey, which it itself is.
+So it can select itself!
+But if it is true, then the outcome depends on the second operand:
+the outcome is true if and only if that second operand is true,
+so the second operand itself is the right thing to return.
+</p>
+<p>Finally, NOT (denoted &#172;) returns false if the operand is true
+and returns true if the operand is false:
+&#172;&nbsp;&#8801;&nbsp;&lambda;<i>p</i>.<i>p</i><b>FT</b>.
+</p>
+<p>Just like with circuits,
+more complex operations can be built by composing these simple pieces.
+For instance, the exclusive-or operation (XOR, denoted &#8853;)
+is defined such that
+&#8853;&nbsp;&#8801;&nbsp;&lambda;<i>p</i>.&lambda;<i>q</i
+>.&#8743;(&#8744;<i>pq</i>)(&#172;(&#8743;<i>pq</i>));
+the first operand is true
+or the second is true,
+but not both.
+Alternatively:
+&#8853;&nbsp;&#8801;&nbsp;&lambda;<i>p</i>.&lambda;<i>q</i
+>.<i>p</i>(&#172;<i>q</i>)<i>q</i>
+</p>
+<table>
+<thead><tr><th>Operation</th><th>Expression</th></tr></thead>
+<tbody>
+<tr>
+ <td><b>T</b></td><td>&lambda;<i>x</i>.&lambda;<i>y</i>.x</td>
+</tr>
+<tr>
+ <td><b>F</b></td><td>&lambda;<i>x</i>.&lambda;<i>y</i>.y</td>
+</tr>
+<tr>
+ <td>&#172;</td><td>&lambda;<i>p</i>.<i>p</i><b>FT</b></td>
+</tr>
+<tr>
+ <td>&#8744;</td><td>&lambda;<i>p</i>.<i>pp</i></td>
+</tr>
+<tr>
+ <td>&#8743;</td><td>&lambda;<i>p</i>.&lambda;<i>q</i>.<i>pqp</i></td>
+</tr>
+<tr>
+ <td>&#8853;</td><td>&lambda;<i>p</i>.&lambda;<i>q</i>.<i>p</i
+>(&#172;<i>q</i>)<i>q</i></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="natural-numbers"><a href="#natural-numbers"
+>Natural Numbers</a></h3>
+<p>Just as Booleans values were represented as functions
+based on their use in if-then-else constructions,
+so too are natural numbers represented based on their use.
+What is, say, three?
+In the &lambda;-calculus,
+threeness is doing something thrice.
+A natural number <i>n</i> is a function
+which takes as its argument a function <i>f</i>
+and returns <i>f</i> composed with itself
+for a total of <i>n</i> applications.
+So <b>3</b>&nbsp;&#8801;&nbsp;&lambda;<i>f</i>.&lambda;<i>x</i
+>.<i>f</i>(<i>f</i>(<i>fx</i>)).
+</p>
+<p>Those familiar with Peano numbers
+know that it suffices to define a zero and a successor function.
+The result of applying a function zero times to an argument <i>x</i>
+is just <i>x</i> itself,
+so <b>0</b>&nbsp;&#8801;&nbsp;&lambda;<i>f</i>.&lambda;<i>x</i>.<i>x</i>.
+This should look familiar:
+<b>0</b> takes two arguments and returns the second.
+In other words, <b>0</b>&nbsp;&#8801;&nbsp;<b>F</b>.
+The successor function takes a number and adds one to it,
+applying the function one more time.
+<b>S</b>&nbsp;&#8801;&nbsp;&lambda;<i>n</i>.&lambda;<i>f</i>.&lambda;<i>x</i
+>.<i>f</i>(<i>nfx</i>).
+</p>
+<p>We want <b>1</b> to be the identity function
+such that <b>1</b><i>fx</i>&nbsp;&#8801;&nbsp;<i>fx</i>.
+Also, <b>1</b>&nbsp;&#8801;&nbsp;<b>S0</b>.
+Check:
+<b>S0</b> &#8801;&nbsp;(&lambda;<i>n</i>.&lambda;<i>f</i
+>.&lambda;<i>x</i>.<i>f</i>(<i>nfx</i>))<b>0</b>
+&#8801;&nbsp;&lambda;<i>f</i>.&lambda;<i>x</i
+>.<i>f</i>(<b>0</b><i>fx</i>)
+&#8801;&nbsp;&lambda;<i>f</i>.&lambda;<i>x</i>.<i>fx</i>
+&#8801;&nbsp;&lambda;<i>f</i>.<i>f</i>,
+the identity function, as desired.
+</p>
+<p>The successor function <b>S</b> adds one to its first argument.
+To add <i>m</i> is to apply the successor function <i>m</i> times.
+But repeated application is exactly what these numbers represent!
+The sum of <i>m</i> and <i>n</i> is simply <i>m</i><b>S</b><i>n</i>.
+Define addition in exactly that way:
++&nbsp;&#8801;&nbsp;&lambda;<i>m</i>.&lambda;<i>n</i
+>.<i>m</i><b>S</b><i>n</i>.
+By &eta;-reduction,
++&nbsp;&#8801;&nbsp;&lambda;<i>m</i>.<i>m</i><b>S</b>.
+And multiplication of <i>m</i> by <i>n</i>
+is simply to add <i>m</i> copies of <i>n</i>:
+5&#215;3&nbsp;&#8801;&nbsp;3+3+3+3+3.
+That is, &#215;&nbsp;&#8801;&nbsp;&lambda;<i>m</i>.&lambda;<i>n</i
+>.<i>m</i>(<i>n</i><b>S</b>)<b>0</b>.
+As a simpler alternative,
+&#215;&nbsp;&#8801;&nbsp;&lambda;<i>m</i>.&lambda;<i>n</i
+>.&lambda;<i>f</i>.<i>m</i>(<i>n</i><i>f</i>).
+</p>
+<p>Tying in to the previous section,
+sometimes one wants to query whether a number
+satisfies some property.
+One simple property is whether the number is zero.
+In order to do this,
+we need a function that takes an argument and returns false:
+&lambda;<i>x</i>.<b>F</b>.
+If this function is applied one or more times
+to an argument, the result is false.
+But if it is applied zero times to an argument <i>x</i>,
+then the result is <i>x</i> itself.
+Define <b>Z</b>&nbsp;&#8801;&nbsp;&lambda;<i>n</i>.<i>n</i>(&lambda;<i
+>x</i>.<b>F</b>)<b>T</b>.
+Then <b>Z0</b>&nbsp;&#8801;&nbsp;<b>0</b>(&lambda;<i>x</i>.<b>F</b>)<b>T</b
+>&nbsp;&#8801;&nbsp;<b>T</b>,
+but <b>Z2</b>&nbsp;&#8801;&nbsp;<b>2</b>(&lambda;<i>x</i>.<b>F</b>)<b>T</b>
+&#8801;&nbsp;(&lambda;<i>f</i>.&lambda;<i>x</i>.<i>f</i>(<i>fx</i
+>))(&lambda;<i>x</i>.<b>F</b>)<b>T</b>
+&#8801;&nbsp;(&lambda;<i>x</i>.(&lambda;<i>x</i>.<b>F</b
+>)((&lambda;<i>x</i>.<b>F</b>)<i>x</i>))<b>T</b>
+&#8801;&nbsp;(&lambda;<i>x</i>.<b>F</b
+>)((&lambda;<i>x</i>.<b>F</b>)<b>T</b>)&nbsp;&#8801;&nbsp;<b>F</b>.
+Recall how the Boolean values are defined;
+&lambda;<i>x</i>.<b>F</b> is simply <b>TF</b>.
+So, <b>Z</b>&nbsp;&#8801;&nbsp;&lambda;<i>n</i>.<i>n</i>(<b>TF</b>)<b>T</b>.
+</p>
+<p>To determine whether two arbitrary numbers are equal
+is more difficult.
+There is no built-in comparison function,
+no equality operator that we can leverage.
+Instead of directly defining equality,
+it is easier to first define inequality, &le;,
+and to derive equality from that.
+We begin by defining a clamped predecessor function <b>P</b>.
+If <i>x</i> is zero then <b>P</b><i>x</i> is also zero,
+otherwise it is <i>x</i>&minus;1.
+In order to do <em>this</em>,
+we introduce a representation of pairs.
+Then we can define a function
+<i>f</i>(<i>a</i>,<i>b</i>)&nbsp;&#8801;&nbsp;(<i>a</i>+1,<i>a</i>)
+such that <i>f</i>(0,0)&nbsp;&#8801;&nbsp;(1,0),
+<i>f</i>(<i>f</i>(0,0))&nbsp;&#8801;&nbsp;<i>f</i>(1,0)&nbsp;&#8801;&nbsp;(2,1),
+and so on.
+Then the result of <i>n</i> applications of <i>f</i> to (0,0)
+will contain <i>n</i>&minus;1 in its second component.
+</p>
+<p>The pair (<i>a</i>,<i>b</i>) can be represented by the function
+&lambda;<i>f</i>.<i>fab</i>.
+Applying a select-first function yields <i>a</i>,
+and applying a select-second function yields <i>b</i>.
+We have those, they are <b>T</b> and <b>F</b>, respectively.
+Our partial-predecessor function is then
+&lambda;<i>p</i>.&lambda;<i>f</i>.<i>f</i>(<b>S</b>(<b>T</b><i>p</i
+>))(<b>T</b><i>p</i>).
+Take a pair <i>p</i>&nbsp;&#8801;&nbsp;(<i>a</i>,<i>b</i>)
+and return a new pair whose first component is <i>a</i>+1
+and whose second component is just <i>a</i>.
+Then <b>P</b>&nbsp;&#8801;&nbsp;&lambda;<i>n</i
+>.<i>n</i>(&lambda;<i>p</i>.&lambda;<i>f</i
+>.<i>f</i>(<b>S</b>(<b>T</b><i>p</i
+>))(<b>T</b><i>p</i>))(&lambda;<i>f</i>.<i>f</i><b>00</b>)<b>F</b>.
+</p>
+<p>With that in place, we have clamped subtraction,
+sometimes called &ldquo;monus&rdquo;.
+The difference <i>x</i>&#8760;<i>y</i>
+is <i>y</i> iterations of the predecessor function to <i>x</i>:
+&#8760;&nbsp;&#8801;&nbsp;&lambda;<i>x</i>.&lambda;<i>y</i
+>.<i>y</i><b>P</b><i>x</i>.
+As <b>P0</b>&nbsp;&#8801;&nbsp;<b>0</b>,
+we have that &#8760;<i>xy</i> is zero
+if and only if <i>x</i>&nbsp;&le;&nbsp;<i>y</i>.
+Define &le;&nbsp;&#8801;&nbsp;&lambda;<i>x</i>.&lambda;<i>y</i
+>.<b>Z</b>(&#8760;<i>xy</i>).
+Two natural numbers are equal if each is less than or equal to the other;
+define equality, =, as
+&lambda;<i>x</i>.&lambda;<i>y</i>.&#8743;(&le;<i>xy</i>)(&le;<i>yx</i>).
+The other possibilities can easily be defined in terms of these.
+</p>
+<table>
+<thead><tr><th>Object</th><th>Expression</th></tr></thead>
+<tbody>
+<tr>
+ <td><b>0</b></td>
+ <td>&lambda;<i>x</i>.&lambda;<i>y</i>.<i>y</i></td>
+</tr>
+<tr>
+ <td><b>S</b> (successor)</td>
+ <td>&lambda;<i>n</i>.&lambda;<i>f</i>.&lambda;<i>x</i
+   >.<i>f</i>(<i>nfx</i>)</td>
+</tr>
+<tr>
+ <td><b>P</b> (clamped predecessor)</td>
+ <td>&lambda;<i>n</i>.<i>n</i>(&lambda;<i>p</i>.&lambda;<i>f</i
+  >.<i>f</i>(<b>S</b>(<b>T</b><i>p</i
+  >))(<b>T</b><i>p</i>))(&lambda;<i>f</i>.<i>f</i><b>00</b
+  >)<b>F</b></td>
+</tr>
+<tr>
+ <td><b>Z</b> (zero?)</td>
+ <td>&lambda;<i>n</i>.<i>n</i>(<b>TF</b>)<b>T</b></td>
+</tr>
+<tr>
+ <td>+</td>
+ <td>&lambda;<i>m</i>.<i>m</i><b>S</b></td>
+</tr>
+<tr>
+ <td>&#8760; (&ldquo;monus&rdquo;)</td>
+ <td>&lambda;<i>m</i>.&lambda;<i>n</i>.<i>n</i><b>P</b><i>m</i></td>
+</tr>
+<tr>
+ <td>&#215;</td>
+ <td>&lambda;<i>m</i>.&lambda;<i>n</i>.&lambda;<i>f</i
+  >.<i>m</i>(<i>nf</i>)</td>
+</tr>
+<tr>
+ <td>&le;</td>
+ <td>&lambda;<i>m</i>.&lambda;<i>n</i
+  >.<b>Z</b>(<i>n</i><b>P</b><i>m</i>)</td>
+</tr>
+<tr>
+ <td>=</td>
+ <td>&lambda;<i>m</i>.&lambda;<i>n</i
+  >.&#8743;(&le;<i>mn</i>)(&le;<i>nm</i>)</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="integers"><a href="#integers">Integers</a></h3>
+<p>So far, we have the natural numbers, the nonnegative numbers.
+We also have pairs and Boolean values,
+so one way to represent all integers would be to encode a pair
+containing a sign bit and a magnitude.
+Those familiar with foundational set theory, however,
+may be aware of a different representation,
+which does not use Boolean values.
+Instead, integers are represented by pairs,
+where (<i>x</i>,<i>y</i>) represents
+the integer <i>x</i>&minus;<i>y</i>.
+Each possible integer has infinitely many representative pairs,
+but this representation is easier to work with.
+</p>
+<p>For instance, addition is pointwise.
+The pair (<i>x</i>,<i>y</i>) represents <i>x</i>&minus;<i>y</i>,
+and (<i>a</i>,<i>b</i>) represents <i>a</i>&minus;<i>b</i>,
+and (<i>x</i>+<i>a</i>,<i>y</i>+<i>b</i>)
+represents
+(<i>x</i>+<i>a</i>)&minus;(<i>y</i>+<i>b</i>)
+&#8801;&nbsp;<i>x</i>+<i>a</i>&minus;<i>y</i>&minus;<i>b</i>
+&#8801;&nbsp;(<i>x</i>&minus;<i>y</i>)+(<i>a</i>&minus;<i>b</i>).
+Recall that a pair selects a function and applies it
+with its two components as arguments, in order,
+and that <b>T</b> selects the first and <b>F</b> selects the second.
+Define +<sub>Z</sub>&nbsp;&#8801;&nbsp;&lambda;<i>p</i>.&lambda;<i>r</i
+>.&lambda;<i>f</i>.<i>f</i>(+(<i>p</i><b>T</b>)(<i>r</i><b>T</b
+>))(+(<i>p</i><b>F</b>)(<i>r</i><b>F</b>));
+take two pairs <i>p</i> and <i>r</i> representing integers,
+then return the pair obtained by adding each component separately.
+</p>
+<p>If (<i>x</i>,<i>y</i>) represents <i>x</i>&minus;<i>y</i>,
+then
+&minus;(<i>x</i>&minus;<i>y</i>)&nbsp;&#8801;&nbsp;<i>y</i>&minus;<i>x</i>
+is represented by (<i>y</i>,<i>x</i>).
+Negation is to flip the pair:
+<b>N</b>&nbsp;&#8801;&nbsp;&lambda;<i>p</i>.&lambda;<i>f</i
+>.<i>f</i>(<i>p</i><b>F</b>)(<i>p</i><b>T</b>).
+To subtract two integers, we can define
+&minus;<sub>Z</sub>&nbsp;&#8801;&nbsp;&lambda;<i>m</i>.&lambda;<i>n</i
+>.+<sub>Z</sub><i>m</i>(<b>N</b><i>n</i>).
+After expansion and simplification,
+&minus;<sub>Z</sub>&nbsp;&#8801;&nbsp;&lambda;<i>p</i>.&lambda;<i>r</i
+>.&lambda;<i>f</i>.<i>f</i>(+(<i>p</i><b>T</b>)(<i>r</i><b>F</b
+>))(+(<i>p</i><b>F</b>)(<i>r</i><b>T</b>)).
+</p>
+<p>Recall that (&#8760;<i>xy</i>) represents
+max(<i>x</i>&minus;<i>y</i>,0).
+If <i>x</i>&le;<i>y</i>, this is 0,
+but if <i>x</i>&ge;<i>y</i>, this is <i>x</i>&minus;<i>y</i>.
+By trichotomy,
++(&#8760;<i>xy</i>)(&#8760;<i>yx</i>)
+is the absolute value of <i>x</i>&minus;<i>y</i>.
+Thus, to obtain the absolute value of an integer
+as a natural number, we can define
+<b>A</b>&nbsp;&#8801;&nbsp;&lambda;<i>x</i
+>.+(<i>x</i>&#8760;)(<i>x</i>(&lambda;<i>a</i>.&lambda;<i>b</i
+>.<i>a</i><b>P</b><i>b</i
+>))&nbsp;&#8801;&nbsp;&lambda;<i>x</i
+>.+(<i>x</i>&#8760;)(<i>x</i>(&lambda;<i>a</i>.<i>a</i><b>P</b>)).
+To test whether an integer is zero
+is to test whether its absolute value is zero,
+so <b>Z</b><sub>Z</sub>&nbsp;&#8801;&nbsp;&lambda;<i>n</i>.<b>Z</b
+>(<b>A</b><i>n</i>).
+</p>
+<p>Finally, to multiply integers,
+note that the distributive property holds:
+<i>k</i>&#8901;(<i>x</i>&minus;<i>y</i
+>)&nbsp;&#8801;&nbsp;<i>k</i>&#8901;<i>x</i
+>&minus;<i>k</i>&#8901;<i>y</i>.
+So we want to multiply each component of one pair
+by the absolute value of the other pair,
+and negate the result if necessary.
+Define
+&#215;<sub>Z</sub>&nbsp;&#8801;&nbsp;&lambda;<i>m</i>.&lambda;<i>n</i
+>.<i>m</i>&le;<b>N</b>(<b>0N</b>)(&lambda;<i>f</i
+>.(&#215;(<b>A</b><i>m</i>)(<i>n</i><b>T</b
+>))(&#215;(<b>A</b><i>m</i>)(<i>n</i><b>F</b>))).
+</p>
+<table>
+<thead><tr>
+ <th>Operation</th><th>Expression</th>
+</tr></thead>
+<tbody>
+<tr>
+ <td><b>A</b> (absolute value)</td>
+ <td>&lambda;<i>n</i>.+(<i>n</i>&#8760;)(<i>n</i
+  >(&lambda;<i>a</i>.<i>a</i><b>P</b>))</td>
+</tr>
+<tr>
+ <td><b>Z</b><sub>Z</sub></td>
+ <td>&lambda;<i>n</i>.<b>Z</b>(<b>A</b><i>n</i>)</td>
+</tr>
+<tr>
+ <td>+<sub>Z</sub></td>
+ <td>&lambda;<i>m</i>.&lambda;<i>n</i>.&lambda;<i>f</i
+>.f(+(<i>m</i><b>T</b>)(<i>n</i><b>T</b
+>))(+(<i>m</i><b>F</b>)(<i>n</i><b>F</b>))</td>
+</tr>
+<tr>
+ <td>&minus;<sub>Z</sub></td>
+ <td>&lambda;<i>m</i>.&lambda;<i>n</i>.&lambda;<i>f</i
+>.f(+(<i>m</i><b>T</b>)(<i>n</i><b>F</b
+>))(+(<i>m</i><b>F</b>)(<i>n</i><b>T</b>))</td>
+</tr>
+<tr>
+ <td>&#215;<sub>Z</sub></td>
+ <td>&lambda;<i>m</i>.&lambda;<i>n</i
+>.<i>m</i>&le;<b>N</b>(<b>0N</b>)(&lambda;<i>f</i
+>.(&#215;(<b>A</b><i>m</i>)(<i>n</i><b>T</b
+>))(&#215;(<b>A</b><i>m</i>)(<i>n</i><b>F</b>)))</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="lists"><a href="#lists">Lists</a></h3>
+<p>With numbers available,
+one might naturally want to represent a list of numbers.
+Recall that in defining integers
+we used pairs, represented by functions
+that take (essentially) two-argument functions as input.
+Given a pair <i>p</i> of natural numbers,
+<i>p</i><b>T</b> is the first,
+<i>p</i><b>F</b> is the second,
+<i>p</i>+ is their sum, and so on.
+To represent a list,
+we might consider a similar sort of configuration:
+a list <i>L</i> is a function which takes as its arguments
+a binary operation <i>f</i> and a default value <i>x</i>.
+If the list is empty, then application yields the default value,
+<i>Lfx</i>&nbsp;&#8801;&nbsp;<i>x</i>.
+Otherwise, the list has a head <i>h</i> and a tail <i>t</i>,
+and the application yields
+<i>Lfx</i>&nbsp;&#8801;&nbsp;<i>fh</i>(<i>tfx</i>).
+</p>
+<p>This gives us exactly the information that we need
+in order to construct something akin to a linked list.
+Like zero and falsity,
+the empty list ignores its first argument and returns its second:
+&empty;&nbsp;&#8801;&nbsp;<b>0</b>.
+Then to cons a head <i>h</i> onto a tail <i>t</i>,
+we can use
+<b>C</b>&nbsp;&#8801;&nbsp;&lambda;<i>h</i>.&lambda;<i>t</i
+>.&lambda;<i>f</i>.&lambda;<i>x</i
+>.<i>fh</i>(<i>tfx</i>).
+</p>
+<p>A function which takes a list of integers
+and returns their sum is
+&Sigma;&nbsp;&#8801;&nbsp;&lambda;<i>a</i>.<i>a</i>+<sub>Z</sub
+>(&lambda;<i>f</i>.f<b>0</b><b>0</b>).
+The product is
+&Pi;&nbsp;&#8801;&nbsp;&lambda;<i>a</i>.<i>a</i>&#215;<sub>Z</sub
+>(&lambda;<i>f</i>.f(<b>S0</b>)<b>0</b>).
+To get the length, the function should ignore the head
+and return the successor of the result,
+and the default value should be the natural number zero:
+<b>L</b>&nbsp;&#8801;&nbsp;&lambda;<i>a</i
+>.<i>a</i>(&lambda;<i>h</i>.<b>S</b>)<b>0</b>.
+To extract the head, or return <b>F</b> in the case of an empty list,
+define <b>H</b>&nbsp;&#8801;&nbsp;&lambda;<i>a</i
+>.<i>a</i><b>TF</b>.
+Finally, to extract the tail, we use a technique similar to that
+used for finding the predecessor of a natural number.
+The initial value is a pair consisting of two copies of the empty set.
+The binary operation takes the head <i>h</i> of the list
+and such a pair (<i>x</i>,<i>y</i>),
+and returns (<b>C</b><i>hx</i>,<i>x</i>).
+The tail in the end is the second component:
+&#8595;&nbsp;&#8801;&nbsp;&lambda;<i>a</i>.<i>a</i
+>(&lambda;<i>h</i>.&lambda;<i>p</i>.&lambda;<i>f</i
+>.(<b>C</b><i>h</i>(<i>p</i><b>T</b>))(<i>p</i><b>T</b
+>))(&lambda;<i>f</i>.f&empty;&empty;)<b>F</b>.
+This, with repeated application gives an indexing function:
+drop <i>n</i> elements and take the head:
+@&nbsp;&#8801;&nbsp;&lambda;<i>a</i>.&lambda;<i>n</i
+>.<b>H</b>(<i>n</i>&#8595;<i>a</i>).
+</p>
+<table>
+<thead><tr><th>Operation</th><th>Expression</th></tr></thead>
+<tbody>
+<tr>
+ <td>&empty; (empty)</td>
+ <td><b>0</b></td>
+</tr>
+<tr>
+ <td><b>C</b> (cons)</td>
+ <td>&lambda;<i>h</i>.&lambda;<i>t</i
+  >.&lambda;<i>f</i>.&lambda;<i>x</i
+  >.<i>fh</i>(<i>tfx</i>)</td>
+</tr>
+<tr>
+ <td>&Sigma; (sum)</td>
+ <td>&lambda;<i>a</i>.<i>a</i>+<sub>Z</sub
+  >(&lambda;<i>f</i>.<i>f</i><b>0</b><b>0</b>)</td>
+</tr>
+<tr>
+ <td>&Pi; (product)</td>
+ <td>&lambda;<i>a</i>.<i>a</i>&#215;<sub>Z</sub
+  >(&lambda;<i>f</i>.<i>f</i>(<b>S0</b>)<b>0</b>)</td>
+</tr>
+<tr>
+ <td><b>L</b> (length)</td>
+ <td>&lambda;<i>a</i>.<i>a</i
+  >(&lambda;<i>h</i>.<b>S</b>)<b>0</b></td>
+</tr>
+<tr>
+ <td><b>H</b> (head)</td>
+ <td>&lambda;<i>a</i>.<i>a</i><b>TF</b></td>
+</tr>
+<tr>
+ <td>&#8595; (tail)</td>
+ <td>&lambda;<i>a</i>.<i>a</i
+  >(&lambda;<i>h</i>.&lambda;<i>p</i>.&lambda;<i>f</i
+  >.(<b>C</b><i>h</i>(<i>p</i><b>T</b>))(<i>p</i><b>T</b
+  >))(&lambda;<i>f</i>.f&empty;&empty;)<b>F</b></td>
+</tr>
+<tr>
+ <td>@ (index)</td>
+ <td>&lambda;<i>a</i>.&lambda;<i>n</i
+  >.<b>H</b>(<i>n</i>&#8595;<i>a</i>)</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="recursion"><a href="#recursion">Recursion</a></h3>
+<p>To this point, none of our functions have been recursive.
+This is both because we have not needed such power
+and because the &lambda;-calculus does not support recursion at all.
+Suppose we want to find the sum of the natural numbers
+up to and including <i>n</i>.
+Now, of course, we know that the result should be
+<i>n</i>(<i>n</i>+1)/2,
+but, alas, we have yet to define a division function.
+Rather than incorporate division,
+let us consider how we might compute this result.
+</p>
+<p>One method is to create a function &phi; that will map a pair
+(<i>x</i>,<i>a</i>) to a new pair
+(<i>x</i>+1,<i>a</i>+<i>x</i>+1).
+Applying this function thrice to (0,0) proceeds as follows:
+(0,0) becomes (1,1), which becomes (2,3), which finally becomes (3,6).
+In general, upon <i>n</i> applications,
+the first component is <i>n</i>
+and the second component is the sum of the natural numbers
+up to and including <i>n</i>.
+Because numbers in the &lambda;-calculus represent repeated application,
+this satisfies the requirement.
+Define &phi;&nbsp;&#8801;&nbsp;&lambda;<i>x</i>.&lambda;<i>f</i
+>.<i>f</i>(<b>S</b>(<i>x</i><b>T</b
+>))(+(<b>S</b>(<i>x</i><b>T</b>))(<i>x</i><b>F</b>)).
+Then define &Delta;&nbsp;&#8801;&nbsp;&lambda;<i>n</i>.<i>n</i
+>&phi;(&lambda;<i>f</i>.<i>f</i><b>00</b>)<b>F</b>
+to compute the desired sum.
+This is essentially a functionalization
+of the iterative solution to the problem.
+</p>
+<p>Another high-level approach would be to use a recursive function:
+&Delta;(<i>n</i>) is 0 if <i>n</i> is 0,
+else it is <i>n</i>+&Delta;(<i>n</i>&minus;1).
+But we cannot say
+[<em>invalid:</em> &Delta;&nbsp;&#8801;&nbsp;&lambda;<i>n</i
+>.<b>Z</b><i>n</i><b>0</b
+>(+<i>n</i>(&Delta;(<b>P</b><i>n</i>)))],
+because this kind of self-reference
+creates an infinitely long formula.
+What we can do is supply as an argument
+the function to be used as the &ldquo;recursive&rdquo; call:
+&Delta;&nbsp;&#8801;&nbsp;&lambda;<i>f</i>.&lambda;<i>n</i
+>.<b>Z</b><i>n</i><b>0</b
+>(+<i>n</i>(<i>f</i>(<b>P</b><i>n</i>))).
+Then, as long we provide a sufficiently large stack of &Delta;,
+we can recursively compute the solution:
+&Delta;(&Delta;(&Delta;(&Delta;&Delta;)))<b>3</b
+>&nbsp;&#8801;&nbsp;(+<b>3</b>(&Delta;(&Delta;(&Delta;&Delta;))<b>2</b>))
+&#8801;&nbsp;(+<b>3</b>(+<b>2</b>(&Delta;(&Delta;&Delta;)<b>1</b>)))
+&#8801;&nbsp;(+<b>3</b>(+<b>2</b>(+<b>1</b>(&Delta;&Delta;<b>0</b>))))
+&#8801;&nbsp;(+<b>3</b>(+<b>2</b>(+<b>1</b>(<b>0</b>))))
+&#8801;&nbsp;<b>6</b>.
+Then what we want is some way
+to get a sufficiently tall stack of &Delta;,
+no matter the parameter.
+</p>
+<p>Enter the <b>Y</b> combinator,
+defined such that
+<b>Y</b><i>f</i>&nbsp;&#8801;&nbsp;<i>f</i>(<b>Y</b><i>f</i>).
+We cannot define it this way, because this uses recursion.
+Instead, we define <b>Y</b>
+such that it accepts a function as an argument,
+then reconstructs itself as an argument to that function:
+<b>Y</b>&nbsp;&#8801;&nbsp;&lambda;<i>f</i
+>.(&lambda;<i>x</i>.<i>f</i>(<i>xx</i
+>))(&lambda;<i>x</i>.<i>f</i>(<i>xx</i>)).
+Then applying this to a function <i>g</i> yields
+<b>Y</b><i>g</i>&nbsp;&#8801;&nbsp;(&lambda;<i>f</i
+>.(&lambda;<i>x</i>.<i>f</i>(<i>xx</i
+>))(&lambda;<i>x</i>.<i>f</i>(<i>xx</i>)))<i>g</i>
+&#8801;&nbsp;(&lambda;<i>x</i>.<i>g</i>(<i>xx</i
+>))(&lambda;<i>x</i>.<i>g</i>(<i>xx</i>))
+&#8801;&nbsp;<i>g</i>((&lambda;<i>x</i>.<i>g</i>(<i>xx</i
+>))(&lambda;<i>x</i>.<i>g</i>(<i>xx</i>)))
+&#8801;&nbsp;<i>g</i>(<b>Y</b><i>g</i>).
+Now, we have
+<b>Y</b>&Delta;<b>3</b
+>&nbsp;&#8801;&nbsp;&Delta;(<b>Y</b>&Delta;)<b>3</b>
+&#8801;&nbsp;(+<b>3</b>(<b>Y</b>&Delta;<b>2</b>))
+&#8801;&nbsp;(+<b>3</b>(&Delta;(<b>Y</b>&Delta;)<b>2</b>))
+&#8801;&nbsp;(+<b>3</b>(+<b>2</b>(<b>Y</b>&Delta;<b>1</b>)))
+&#8801;&nbsp;(+<b>3</b>(+<b>2</b>(&Delta;(<b>Y</b>&Delta;)<b>1</b>)))
+&#8801;&nbsp;(+<b>3</b>(+<b>2</b>(+<b>1</b>(<b>Y</b>&Delta;<b>0</b>))))
+&#8801;&nbsp;(+<b>3</b>(+<b>2</b>(+<b>1</b>(&Delta;(<b>Y</b>&Delta;)<b>0</b>))))
+&#8801;&nbsp;(+<b>3</b>(+<b>2</b>(+<b>1</b>(<b>0</b>))))
+&#8801;&nbsp;<b>6</b>, as desired.
+We need not concern ourselves with providing an appropriate
+number of &Delta;, because <b>Y</b>&Delta; always produces another.
+</p>
+
+<h3 id="directions"><a href="#directions">Directions</a></h3>
+<p>This post sampled a small collection of common
+objects and data structures
+to serve as an introduction to the &lambda;-calculus
+and the functional approach to computation.
+Unlike a Turing machine or a personal computer,
+there is no notion of a memory layout,
+no restriction to a linear pattern of cells.
+Even so, structuring data requires careful thought.
+Using the provided structures and applications as a guide,
+consider trying these additional challenges.
+For how many of them is <b>Y</b> necessary?
+</p>
+<ul>
+<li>Define the missing inequalities on natural numbers.</li>
+<li>Define equality and inequalities on integers.</li>
+<li>Define the factorial function on natural numbers,
+where the factorial of zero is one,
+and the factorial of any <i>n</i> greater than zero
+is the product of <i>n</i> and the factorial of <i>n</i>&minus;1.</li>
+<li>Define the integer-division of natural numbers or integers.</li>
+<li>Construct the rational numbers along with appropriate
+  addition, subtraction, multiplication and division.</li>
+<li>Implement natural number exponents
+  on natural numbers or integers.</li>
+<li>Implement integer exponents on rational numbers.</li>
+<li>Implement some representation of a binary tree.</li>
+</ul>
+</article>
+<footer>
+<p><a
+     id="cy-effective-orcid-url"
+     class="underline"
+     href="https://orcid.org/0000-0002-7056-5950"
+     target="orcid.widget"
+     rel="me noopener noreferrer"
+     style="vertical-align: top"
+    ><img
+      src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+      style="width: 1em"
+      alt="ORCID iD icon">
+    https://orcid.org/0000-0002-7056-5950
+  </a></p>
+</footer>
+</div>
+</div>
+</body>
+</html>
