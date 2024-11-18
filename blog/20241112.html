@@ -64,23 +64,101 @@ the λ-calculus has only
 the creation and application of single-argument functions.
 </p>
 <ul>
-<li>An identifier 𝑥 is an expression representing a parameter</li>
-<li>If 𝐸 is an expression and 𝑥 an identifier,
-  then (λ𝑥.𝐸) is an expression
-  representing a function.</li>
-<li>If 𝐸 and 𝐹 are expressions,
-  then (𝐸𝐹) is an expression representing the application
-  of 𝐸 to 𝐹.</li>
+<li>An identifier <math><mi>x</mi></math>
+  is an expression representing a parameter</li>
+<li>If
+  <math><mi>E</mi></math>
+  is an expression and
+  <math><mi>x</mi></math>
+  an identifier, then
+  <math>
+    <mrow>
+      <mo>(</mo>
+      <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+      <mi>E</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+  is an expression representing a function.</li>
+<li>If <math><mi>E</mi></math> and <math><mi>F</mi></math>
+  are expressions, then
+  <math><mrow><mo>(</mo><mi>E</mi><mi>F</mi><mo>)</mo></mrow></math>
+  is an expression representing the application
+  of <math><mi>E</mi></math>
+  to <math><mi>F</mi></math>.</li>
 <li>Nothing else is an expression.</li>
 </ul>
 <p>To improve readability by avoiding excessive parentheses,
 function application is associated to the left:
-𝑤𝑥𝑦𝑧&nbsp;≡&nbsp;(((𝑤𝑥)𝑦)𝑧).
+<math>
+<mrow>
+<mi>w</mi><mi>x</mi><mi>y</mi><mi>z</mi>
+<mo>≡</mo>
+<mo>(</mo>
+ <mo>(</mo>
+  <mo>(</mo><mi>w</mi><mi>x</mi><mo>)</mo>
+  <mi>y</mi>
+ <mo>)</mo>
+ <mi>z</mi>
+<mo>)</mo>
+</mrow>
+</math>.
 Further, parentheses are omitted from functions
 that are created but not applied:
-λ𝑓.λ𝑥.λ𝑦.𝑓𝑦𝑥&nbsp;≡&nbsp;(λ𝑓.(λ𝑥.(λ𝑦.(𝑓𝑦)𝑥))),
+<math>
+<mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>f</mi><mi>y</mi><mi>x</mi>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+    <mo>(</mo>
+     <mi>f</mi><mi>y</mi>
+    <mo>)</mo>
+    <mi>x</mi>
+   <mo>)</mo>
+  <mo>)</mo>
+<mo>)</mo>
+</mrow>
+</math>,
 distinct from
-λ𝑓.λ𝑥.(λ𝑦.𝑓𝑦)𝑥&nbsp;≡&nbsp;(λ𝑓.(λ𝑥.(λ𝑦.(𝑓𝑦))𝑥)).
+<math>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>f</mi><mi>y</mi>
+ <mo>)</mo>
+ <mi>𝑥</mi>
+</mrow>
+</math>
+<math>
+<mo lspace="0">≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+    <mo>(</mo>
+     <mi>f</mi><mi>y</mi>
+    <mo>)</mo>
+   <mo>)</mo>
+   <mi>x</mi>
+  <mo>)</mo>
+ <mo>)</mo>
+</mrow>
+</math>.
 </p>
 <p>Programs are built from data and transformations.
 In a high-level language,
@@ -103,72 +181,263 @@ with two distinct values: true and false.
 How might one represent a Boolean value as a single-argument function?
 To answer this, consider how Boolean values are used.
 Typically, they are used in conditional expressions:
-if some condition 𝐶 holds, then 𝑋, else 𝑌.
+if some condition
+<math><mi>C</mi></math> holds,
+then <math><mi>X</mi></math>,
+else <math><mi>Y</mi></math>.
 Instead of defining true and false as atomic values,
 we can define them in terms of this conditional structure.
-If 𝐶 is a Boolean value,
-we can have 𝐶𝑋𝑌 produce 𝑋 when 𝐶 is true,
-and produce 𝑌 when 𝐶 is false.
+If <math><mi>C</mi></math> is a Boolean value,
+we can have <math><mi>C</mi><mi>X</mi><mi>Y</mi></math>
+produce <math><mi>X</mi></math>
+when <math><mi>C</mi></math> is true,
+and produce <math><mi>Y</mi></math>
+when <math><mi>C</mi></math> is false.
 </p>
 <p>This looks like we are considering two-argument functions,
 but we need not take more than one at a time.
-Let us define the Boolean value &ldquo;true&rdquo; as 𝐓.
-We want 𝐓𝑋𝑌 to be 𝑋.
-In other words, we want (𝐓𝑋)
-to be a function of one argument which returns 𝑋
+Let us define the Boolean value &ldquo;true&rdquo; as
+<math><mi>𝐓</mi></math>.
+We want
+<math><mi>𝐓</mi><mi>X</mi><mi>Y</mi></math>
+to be <math><mi>X</mi></math>.
+In other words, we want
+<math><mrow><mo>(</mo><mi>𝐓</mi><mi>X</mi><mo>)</mo></mrow></math>
+to be a function of one argument which returns <math><mi>X</mi></math>
 no matter its input:
-𝐓&nbsp;≡&nbsp;λ𝑥.λ𝑦.𝑥.
+<math>
+<mi>𝐓</mi>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+ <mi>x</mi>
+</mrow>
+</math>.
 In action:
-𝐓𝑋𝑌&nbsp;≡&nbsp;(λ𝑥.λ𝑦.𝑥)𝑋𝑌&nbsp;≡&nbsp;(λ𝑦.𝑋)𝑌&nbsp;≡&nbsp;𝑋.
+<math>
+<mrow>
+ <mi>𝐓</mi><mi>X</mi><mi>Y</mi>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>x</mi>
+ <mo>)</mo>
+ <mi>X</mi><mi>Y</mi>
+</mrow>
+</math>
+<math>
+<mo lspace="0">≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>X</mi>
+ <mo>)</mo>
+ <mi>Y</mi>
+</mrow>
+</math>
+<math>
+<mo lspace="0">≡</mo><mi>X</mi>
+</math>.
 (This process of selecting an argument
 and instantiating it inside the function body
 is called β-reduction.)
-Similarly, 𝐅 selects the second of the two arguments:
-𝐅&nbsp;≡&nbsp;λ𝑥.λ𝑦.𝑦.
+Similarly, <math><mi>𝐅</mi></math>
+selects the second of the two arguments:
+<math>
+<mi>𝐅</mi>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+ <mi>y</mi>
+</mrow>
+</math>.
 In action:
-𝐅𝑋𝑌&nbsp;≡&nbsp;(λ𝑥.λ𝑦.𝑦)𝑋𝑌&nbsp;≡&nbsp;(λ𝑦.𝑦)𝑌&nbsp;≡&nbsp;𝑌.
+<math>
+<mi>𝐅</mi><mi>X</mi><mi>Y</mi>
+<mo>≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>y</mi>
+ <mo>)</mo>
+ <mi>X</mi><mi>Y</mi>
+</mrow>
+</math>
+<math>
+<mo lspace="0">≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>y</mi>
+ <mo>)</mo>
+ <mi>Y</mi>
+</mrow>
+<mo>≡</mo>
+<mi>Y</mi>
+</math>.
 </p>
-<p>Boolean combinators such AND, OR and NOT,
+<p>Boolean combinators such as AND, OR and NOT,
 are naturally two-argument functions.
-First consider the OR combinator, which we will denote ∨.
+First consider the OR combinator,
+which we will denote <math><mo lspace="0" rspace="0">∨</mo></math>.
 Recall that Booleans are essentially
 two-argument functions that represent if-then-else constructions.
-It should be that ∨𝑃𝑄 is true if 𝑃 is true,
-else it is true if 𝑄 is true and false otherwise.
+It should be that
+<math><mo lspace="0" rspace="0">∨</mo><mi>P</mi><mi>Q</mi></math>
+is true if <math><mi>P</mi></math> is true,
+else it is true if <math><mi>Q</mi></math> is true and false otherwise.
 In fully expanded form:
-∨𝑃𝑄&nbsp;≡&nbsp;𝑃𝐓(𝑄𝐓𝐅).
-Notice, however, that (𝑄𝐓𝐅) is equivalent to 𝑄:
-if 𝑄&nbsp;≡&nbsp;𝐓 then 𝐓 is selected,
-and if 𝑄&nbsp;≡&nbsp;𝐅 then 𝐅 is selected,
-so assuming 𝑄 is a Boolean value,
+<math>
+<mrow><mo lspace="0" rspace="0">∨</mo><mi>P</mi><mi>Q</mi></mrow>
+<mo>≡</mo>
+<mrow>
+ <mi>P</mi>
+ <mi>𝐓</mi>
+ <mrow><mo>(</mo>
+  <mi>Q</mi><mi>𝐓</mi><mi>𝐅</mi>
+ <mo>)</mo></mrow>
+</mrow>
+</math>.
+Notice, however, that
+<math><mrow><mo>(</mo>
+ <mi>Q</mi><mi>𝐓</mi><mi>𝐅</mi>
+<mo>)</mo></mrow>
+</math> is equivalent to <math><mi>Q</mi></math>:
+if <math><mi>Q</mi><mo>≡</mo><mi>𝐓</mi></math>
+then <math><mi>𝐓</mi></math> is selected,
+and if <math><mi>Q</mi><mo>≡</mo><mi>𝐅</mi></math>
+then <math><mi>𝐅</mi></math> is selected,
+so assuming <math><mi>Q</mi></math> is a Boolean value,
 we can simplify this definition to
-∨𝑃𝑄&nbsp;≡&nbsp;𝑃𝐓𝑄.
-Notice also that, if 𝑃 is a Boolean value
-and selects the 𝐓 here,
-then 𝑃 must have been true;
+<math>
+ <mrow><mo lspace="0" rspace="0">∨</mo><mi>P</mi><mi>Q</mi></mrow>
+ <mo>≡</mo>
+ <mrow><mi>P</mi><mi>𝐓</mi><mi>Q</mi></mrow>
+</math>.
+Notice also that,
+if <math><mi>P</mi></math> is a Boolean value
+and selects the <math><mi>𝐓</mi></math> here,
+then <math><mi>P</mi></math> must have been true;
 in other words, this simplifies further to
-∨𝑃𝑄&nbsp;≡&nbsp;𝑃𝑃𝑄.
+<math>
+ <mrow><mo lspace="0" rspace="0">∨</mo><mi>P</mi><mi>Q</mi></mrow>
+ <mo>≡</mo>
+ <mrow><mi>P</mi><mi>P</mi><mi>Q</mi></mrow>
+</math>.
 </p>
 <p>
 Doing β-reduction in reverse,
 we can &ldquo;unapply&rdquo; the function one argument at a time.
 This is called β-abstraction:
-If ∨𝑃𝑄&nbsp;≡&nbsp;𝑃𝑃𝑄,
-then ∨𝑃𝑄&nbsp;≡&nbsp;(λ𝑞.𝑃𝑃𝑞)𝑄.
+If
+<math>
+<mrow>
+ <mo lspace="0" rspace="0">∨</mo><mi>P</mi><mi>Q</mi>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mi>P</mi><mi>P</mi><mi>Q</mi>
+</mrow>
+</math>,
+then
+<math>
+<mrow>
+ <mo lspace="0" rspace="0">∨</mo><mi>P</mi><mi>Q</mi>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+  <mi>P</mi><mi>P</mi><mi>q</mi>
+ <mo>)</mo>
+ <mi>Q</mi>
+</mrow>
+</math>.
 In other words,
-∨𝑃&nbsp;≡&nbsp;λ𝑞.𝑃𝑃𝑞.
-After another round of β-abstraction,
-given ∨𝑃&nbsp;≡&nbsp;λ𝑞.𝑃𝑃𝑞 we derive
-∨𝑃&nbsp;≡&nbsp;(λ𝑝.λ𝑞.𝑝𝑝𝑞)𝑃.
-In other words, ∨&nbsp;≡&nbsp;λ𝑝.λ𝑞.𝑝𝑝𝑞.
-Whenever we see a wrapped application λ𝑥.𝐸𝑥,
-where this 𝑥 does not appear in 𝐸,
+<math>
+<mrow>
+ <mo lspace="0" rspace="0">∨</mo><mi>P</mi>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+ <mi>P</mi><mi>P</mi><mi>q</mi>
+</mrow>
+</math>.
+After another round of β-abstraction, given
+<math>
+<mrow>
+ <mo lspace="0" rspace="0">∨</mo><mi>P</mi>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+ <mi>P</mi><mi>P</mi><mi>q</mi>
+</mrow>
+</math>
+we derive
+<math>
+<mrow>
+ <mo lspace="0" rspace="0">∨</mo><mi>P</mi>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+  <mi>p</mi><mi>p</mi><mi>q</mi>
+ <mo>)</mo>
+ <mi>P</mi>
+</mrow>
+</math>.
+In other words,
+<math>
+<mrow>
+ <mo lspace="0" rspace="0">∨</mo>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+ <mi>p</mi><mi>p</mi><mi>q</mi>
+</mrow>
+</math>.
+Whenever we see a wrapped application
+<math>
+ <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+ <mi>E</mi><mi>x</mi>
+</math>,
+where this <math><mi>x</mi></math>
+does not appear in <math><mi>E</mi></math>,
 we can apply a rule called η-reduction
-to transform this into just 𝐸.
-So ∨&nbsp;≡&nbsp;λ𝑝.𝑝𝑝.
+to transform this into just <math><mi>E</mi></math>.
+So
+<math>
+ <mrow><mo lspace="0" rspace="0">∨</mo></mrow>
+ <mo>≡</mo>
+ <mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+ <mi>p</mi><mi>p</mi>
+ </mrow>
+</math>.
 </p>
-<p>Similarly, AND (denoted ∧) can be defined as
-∧&nbsp;≡&nbsp;λ𝑝.λ𝑞.𝑝𝑞𝑝.
+<p>Similarly, AND (denoted <math><mo lspace="0" rspace="0">∧</mo></math>)
+can be defined as
+<math>
+<mrow><mo lspace="0" rspace="0">∧</mo></mrow>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+ <mi>p</mi><mi>q</mi><mi>p</mi>
+</mrow>
+</math>.
 If the first argument is false,
 it should select something falsey, which it itself is.
 So it can select itself!
@@ -176,95 +445,305 @@ But if it is true, then the outcome depends on the second operand:
 the outcome is true if and only if that second operand is true,
 so the second operand itself is the right thing to return.
 </p>
-<p>Finally, NOT (denoted ¬) returns false if the operand is true
+<p>Finally, NOT (denoted <math><mo lspace="0" rspace="0">¬</mo></math>)
+returns false if the operand is true
 and returns true if the operand is false:
-¬&nbsp;≡&nbsp;λ𝑝.𝑝𝐅𝐓.
+<math>
+<mrow><mo lspace="0" rspace="0">¬</mo></mrow>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+ <mi>p</mi><mi>𝐅</mi><mi>𝐓</mi>
+</mrow>
+</math>.
 </p>
 <p>Just like with circuits,
 more complex operations can be built by composing these simple pieces.
-For instance, the exclusive-or operation (XOR, denoted ⊕)
+For instance, the exclusive-or operation
+(XOR, denoted <math><mo lspace="0" rspace="0">⊕</mo></math>)
 is defined such that
-⊕&nbsp;≡&nbsp;λ𝑝.λ𝑞.∧(∨𝑝𝑞)(¬(∧𝑝𝑞));
+<math>
+<mrow><mo lspace="0" rspace="0">⊕</mo></mrow>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">∧</mo>
+ <mrow><mo>(</mo>
+  <mo lspace="0" rspace="0">∨</mo><mi>p</mi><mi>q</mi>
+ <mo>)</mo></mrow>
+ <mrow><mo>(</mo>
+  <mo lspace="0" rspace="0">¬</mo>
+  <mrow><mo>(</mo>
+   <mo lspace="0" rspace="0">∧</mo><mi>p</mi><mi>q</mi>
+  <mo>)</mo></mrow>
+ <mo>)</mo></mrow>
+</mrow>
+</math>;
 the first operand is true
 or the second is true,
 but not both.
 Alternatively:
-⊕&nbsp;≡&nbsp;λ𝑝.λ𝑞.𝑝(¬𝑞)𝑞.
+<math>
+<mrow><mo lspace="0" rspace="0">⊕</mo></mrow>
+<mo>≡</mo>
+<mrow>
+ <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+ <mi>p</mi>
+ <mrow><mo>(</mo>
+  <mo lspace="0" rspace="0">¬</mo><mi>q</mi>
+ <mo>)</mo></mrow>
+ <mi>q</mi>
+</mrow>
+</math>.
 </p>
 <table>
 <thead><tr><th>Operation</th><th>Expression</th></tr></thead>
 <tbody>
 <tr>
- <td>𝐓</td><td>λ𝑥.λ𝑦.𝑥</td>
+ <td><math><mi>𝐓</mi></math></td>
+ <td><math>
+   <mrow>
+     <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+     <mi>x</mi>
+   </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>𝐅</td><td>λ𝑥.λ𝑦.𝑦</td>
+ <td><math><mi>𝐅</mi></math></td>
+ <td><math>
+   <mrow>
+     <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+     <mi>y</mi>
+   </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>¬</td><td>λ𝑝.𝑝𝐅𝐓</td>
+ <td><math><mo lspace="0" rspace="0">¬</mo></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+  <mi>p</mi><mi>𝐅</mi><mi>𝐓</mi>
+ </math></td>
 </tr>
 <tr>
- <td>∨</td><td>λ𝑝.𝑝𝑝</td>
+ <td><math><mo lspace="0" rspace="0">∨</mo></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+  <mi>p</mi><mi>p</mi>
+ </math></td>
 </tr>
 <tr>
- <td>∧</td><td>λ𝑝.λ𝑞.𝑝𝑞𝑝</td>
+ <td><math><mo lspace="0" rspace="0">∧</mo></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+  <mi>p</mi><mi>q</mi><mi>p</mi>
+ </math></td>
 </tr>
 <tr>
- <td>⊕</td><td>λ𝑝.λ𝑞.𝑝(¬𝑞)𝑞</td>
+ <td><math><mo lspace="0" rspace="0">⊕</mo></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>q</mi><mo lspace="0">.</mo>
+  <mi>p</mi>
+  <mrow><mo>(</mo>
+   <mo lspace="0" rspace="0">¬</mo><mi>q</mi>
+  <mo>)</mo></mrow>
+  <mi>q</mi>
+ </math></td>
 </tr>
 </tbody>
 </table>
 
 <h3 id="natural-numbers"><a href="#natural-numbers"
 >Natural Numbers</a></h3>
-<p>Just as Booleans values were represented as functions
+<p>Just as Boolean values were represented as functions
 based on their use in if-then-else constructions,
 so too are natural numbers represented based on their use.
 What is, say, three?
 In the λ-calculus,
 threeness is doing something thrice.
-A natural number 𝑛 is a function
-which takes as its argument a function <i>f</i>
-and returns 𝑓 composed with itself
-for a total of 𝑛 applications.
-So 𝟑&nbsp;≡&nbsp;λ𝑓.λ𝑥.𝑓(𝑓(𝑓𝑥)).
+A natural number <math><mi>n</mi></math> is a function
+which takes as its argument a function <math><mi>f</mi></math>
+and returns <math><mi>f</mi></math> composed with itself
+for a total of <math><mi>n</mi></math> applications.
+So
+<math>
+ <mn>𝟑</mn>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow><mo>(</mo>
+   <mi>f</mi>
+   <mrow><mo>(</mo>
+    <mi>f</mi><mi>x</mi>
+   <mo>)</mo></mrow>
+  <mo>)</mo></mrow>
+ </mrow>
+</math>.
 </p>
 <p>Those familiar with Peano numbers
 know that it suffices to define a zero and a successor function.
-The result of applying a function zero times to an argument 𝑥
-is just 𝑥 itself,
-so 𝟎&nbsp;≡&nbsp;λ𝑓.λ𝑥.𝑥.
+The result of applying a function zero times to an argument
+<math><mi>x</mi></math> is just <math><mi>x</mi></math> itself, so
+<math>
+ <mn>𝟎</mn>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>x</mi>
+ </mrow>
+</math>.
 This should look familiar:
-𝟎 takes two arguments and returns the second.
-In other words, 𝟎&nbsp;≡&nbsp;𝐅.
+<math><mn>𝟎</mn></math>
+takes two arguments and returns the second.
+In other words,
+<math><mn>𝟎</mn><mo>≡</mo><mi>𝐅</mi></math>.
 The successor function takes a number and adds one to it,
 applying the function one more time.
-𝐒&nbsp;≡&nbsp;λ𝑛.λ𝑓.λ𝑥.𝑓(𝑛𝑓𝑥).
+<math>
+<mi>𝐒</mi>
+<mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow><mo>(</mo>
+   <mi>n</mi><mi>f</mi><mi>x</mi>
+  <mo>)</mo></mrow>
+ </mrow>
+</math>.
 </p>
-<p>We want 𝟏 to be the identity function
-such that 𝟏𝑓𝑥&nbsp;≡&nbsp;𝑓𝑥.
-Also, 𝟏&nbsp;≡&nbsp;𝐒𝟎.
+<p>We want <math><mn>𝟏</mn></math> to be the identity function
+such that
+<math>
+ <mrow><mn>𝟏</mn><mi>f</mi><mi>x</mi></mrow>
+ <mo>≡</mo>
+ <mrow><mi>f</mi><mi>x</mi></mrow>
+</math>.
+Also,
+<math>
+ <mn>𝟏</mn>
+ <mo>≡</mo>
+ <mrow><mi>𝐒</mi><mn>𝟎</mn></mrow>
+</math>.
 Check:
-𝐒𝟎&nbsp;≡&nbsp;(λ𝑛.λ𝑓.λ𝑥.𝑓(𝑛𝑓𝑥))𝟎
-≡&nbsp;λ𝑓.λ𝑥.𝑓(𝟎𝑓𝑥)
-≡&nbsp;λ𝑓.λ𝑥.𝑓𝑥
-≡&nbsp;λ𝑓.𝑓,
+<math>
+ <mrow><mi>𝐒</mi><mn>𝟎</mn></mrow>
+ <mo>≡</mo>
+ <mrow><mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow><mo>(</mo>
+   <mi>n</mi><mi>f</mi><mi>x</mi>
+  <mo>)</mo></mrow>
+ <mo>)</mo><mn>𝟎</mn></mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow><mo>(</mo>
+   <mn>𝟎</mn><mi>f</mi><mi>x</mi>
+  <mo>)</mo></mrow>
+ </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>f</mi><mi>x</mi>
+ </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+ </mrow>
+</math>,
 the identity function, as desired.
 </p>
 <p>The successor function 𝐒 adds one to its first argument.
-To add 𝑚 is to apply the successor function 𝑚 times.
+To add <math><mi>m</mi></math>
+is to apply the successor function <math><mi>m</mi></math> times.
 But repeated application is exactly what these numbers represent!
-The sum of 𝑚 and 𝑛 is simply 𝑚𝐒𝑛.
+The sum of <math><mi>m</mi></math> and <math><mi>n</mi></math>
+is simply <math><mi>m</mi><mi>𝐒</mi><mi>n</mi></math>.
 Define addition in exactly that way:
-+&nbsp;≡&nbsp;λ𝑚.λ𝑛.𝑚𝐒𝑛.
+<math>
+ <mo lspace="0" rspace="0">+</mo>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>m</mi><mi>𝐒</mi><mi>n</mi>
+ </mrow>
+</math>.
 By η-reduction,
-+&nbsp;≡&nbsp;λ𝑚.𝑚𝐒.
-And multiplication of 𝑚 by 𝑛
-is simply to add 𝑚 copies of 𝑛:
-5×3&nbsp;≡&nbsp;3+3+3+3+3.
-That is, ×&nbsp;≡&nbsp;λ𝑚.λ𝑛.𝑚(𝑛𝐒)𝟎.
+<math>
+ <mo lspace="0" rspace="0">+</mo>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mi>m</mi><mi>𝐒</mi>
+ </mrow>
+</math>.
+And multiplication of <math><mi>m</mi></math> by <math><mi>n</mi></math>
+is simply to add <math><mi>m</mi></math>
+copies of <math><mi>n</mi></math>:
+<math>
+<mrow><mn>5</mn><mo>×</mo><mn>3</mn></mrow>
+<mo>≡</mo>
+<mrow>
+ <mn>3</mn>
+ <mo>+</mo><mn>3</mn>
+ <mo>+</mo><mn>3</mn>
+ <mo>+</mo><mn>3</mn>
+ <mo>+</mo><mn>3</mn>
+</mrow>
+</math>.
+That is,
+<math>
+ <mo lspace="0" rspace="0">×</mo>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>n</mi>
+  <mrow><mo>(</mo>
+   <mi>n</mi><mi>𝐒</mi>
+  <mo>)</mo></mrow>
+  <mn>𝟎</mn>
+ </mrow>
+</math>.
 As a simpler alternative,
-×&nbsp;≡&nbsp;λ𝑚.λ𝑛.λ𝑓.𝑚(𝑛𝑓).
+<math>
+ <mo lspace="0" rspace="0">×</mo>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>n</mi>
+  <mrow><mo>(</mo>
+   <mi>n</mi><mi>𝐒</mi>
+  <mo>)</mo></mrow>
+  <mi>f</mi>
+ </mrow>
+</math>.
 </p>
 <p>Tying in to the previous section,
 sometimes one wants to query whether a number
@@ -272,105 +751,437 @@ satisfies some property.
 One simple property is whether the number is zero.
 In order to do this,
 we need a function that takes an argument and returns false:
-λ𝑥.𝐅.
+<math>
+ <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+ <mi>𝐅</mi>
+</math>.
 If this function is applied one or more times
 to an argument, the result is false.
-But if it is applied zero times to an argument 𝑥,
-then the result is 𝑥 itself.
-Define 𝐙&nbsp;≡&nbsp;λ𝑛.𝑛(λ𝑥.𝐅)𝐓.
-Then 𝐙𝟎&nbsp;≡&nbsp;𝟎(λ𝑥.𝐅)𝐓&nbsp;≡&nbsp;𝐓,
-but 𝐙𝟐&nbsp;≡&nbsp;𝟐(λ𝑥.𝐅)𝐓
-≡&nbsp;(λ𝑓.λ𝑥.𝑓(𝑓𝑥))(λ𝑥.𝐅)𝐓
-≡&nbsp;(λ𝑥.(λ𝑥.𝐅)((λ𝑥.𝐅)𝑥))𝐓
-≡&nbsp;(λ𝑥.𝐅)((λ𝑥.𝐅)𝐓)&nbsp;≡&nbsp;𝐅.
+But if it is applied zero times
+to an argument <math><mi>x</mi></math>,
+then the result is <math><mi>x</mi></math> itself.
+Define
+<math>
+ <mi>𝐙</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>n</mi>
+  <mrow><mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>𝐅</mi>
+  <mo>)</mo></mrow>
+  <mi>𝐓</mi>
+ </mrow>
+</math>.
+Then
+<math>
+ <mrow><mi>𝐙</mi><mn>𝟎</mn></mrow>
+ <mo>≡</mo>
+ <mn>𝟎</mn>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>𝐅</mi>
+ <mo>)</mo>
+ <mi>𝐓</mi>
+ <mo>≡</mo>
+ <mi>𝐓</mi>
+</math>,
+but
+<math>
+ <mrow><mi>𝐙</mi><mn>𝟐</mn></mrow>
+ <mo>≡</mo>
+ <mrow>
+  <mn>𝟐</mn>
+  <mrow><mo>(</mo>
+   <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+   <mi>𝐅</mi>
+  <mo>)</mo></mrow>
+  <mi>𝐓</mi>
+ </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mrow><mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>f</mi><mo>(</mo><mi>f</mi><mi>x</mi><mo>)</mo>
+ <mo>)</mo></mrow>
+ <mrow><mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>𝐅</mi>
+ <mo>)</mo></mrow>
+ <mi>𝐓</mi>
+</math>
+<math>
+<mo lspace="0">≡</mo>
+<mrow>
+ <mrow><mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mrow><mo>(</mo>
+   <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+   <mi>𝐅</mi>
+  <mo>)</mo></mrow>
+  <mrow><mo>(</mo>
+   <mrow><mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>𝐅</mi>
+   <mo>)</mo></mrow>
+   <mi>x</mi>
+  <mo>)</mo></mrow>
+ <mo>)</mo></mrow>
+ <mi>𝐓</mi>
+</mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mrow>
+  <mrow><mo>(</mo>
+   <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+   <mi>𝐅</mi>
+  <mo>)</mo></mrow>
+  <mrow><mo>(</mo>
+   <mrow><mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>𝐅</mi>
+   <mo>)</mo></mrow>
+   <mi>𝐓</mi>
+  <mo>)</mo></mrow>
+ </mrow>
+ <mo>≡</mo>
+ <mi>𝐅</mi>
+</math>.
 Recall how the Boolean values are defined;
-λ𝑥.𝐅 is simply 𝐓𝐅.
-So, 𝐙&nbsp;≡&nbsp;λ𝑛.𝑛(𝐓𝐅)𝐓.
+<math>
+ <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+ <mi>𝐅</mi>
+</math>
+is simply <math><mi>𝐓</mi><mi>𝐅</mi></math>.
+So,
+<math>
+ <mi>𝐙</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>n</mi>
+  <mrow><mo>(</mo><mi>𝐓</mi><mi>𝐅</mi><mo>)</mo></mrow>
+  <mi>𝐓</mi>
+ </mrow>
+</math>.
 </p>
 <p>To determine whether two arbitrary numbers are equal
 is more difficult.
 There is no built-in comparison function,
 no equality operator that we can leverage.
 Instead of directly defining equality,
-it is easier to first define inequality, ≤,
+it is easier to first define inequality,
+<math><mo lspace="0" rspace="0">≤</mo></math>,
 and to derive equality from that.
-We begin by defining a clamped predecessor function 𝐏.
-If 𝑥 is zero then 𝐏𝑥 is also zero,
-otherwise it is 𝑥&minus;1.
+We begin by defining a clamped predecessor function
+<math><mi>𝐏</mi></math>.
+If <math><mi>x</mi></math> is zero
+then <math><mi>𝐏</mi><mi>x</mi></math> is also zero,
+otherwise it is
+<math><mi>x</mi><mo>&minus;</mo><mn>1</mn></math>.
 In order to do <em>this</em>,
 we introduce a representation of pairs.
 Then we can define a function
-𝑓(𝑎,𝑏)&nbsp;≡&nbsp;(𝑎+1,𝑎)
-such that 𝑓(0,0)&nbsp;≡&nbsp;(1,0),
-𝑓(𝑓(0,0))&nbsp;≡&nbsp;𝑓(1,0)&nbsp;≡&nbsp;(2,1),
+<math>
+<mrow>
+ <mi>f</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo>
+</mrow>
+<mo>≡</mo>
+<mrow>
+ <mo>(</mo>
+  <mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow>
+ <mo>,</mo>
+  <mi>a</mi>
+ <mo>)</mo>
+</mrow>
+</math>
+such that
+<math>
+ <mrow>
+  <mi>f</mi><mo>(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>)</mo>
+ </mrow>
+ <mo>≡</mo>
+ <mrow><mo>(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo>)</mo></mrow>
+</math>,
+
+<math>
+ <mrow>
+  <mi>f</mi><mo>(</mo>
+   <mi>f</mi><mo>(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>)</mo>
+  <mo>)</mo>
+ </mrow>
+ <mo>≡</mo>
+ <mrow>
+  <mi>f</mi><mo>(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo>)</mo>
+ </mrow>
+ <mo>≡</mo>
+ <mrow><mo>(</mo><mn>2</mn><mo>,</mo><mn>1</mn><mo>)</mo></mrow>
+</math>,
 and so on.
-Then the result of 𝑛 applications of 𝑓 to (0,0)
-will contain 𝑛&minus;1 in its second component.
+Then the result of <math><mi>n</mi></math> applications
+of <math><mi>f</mi></math>
+to <math><mo>(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>)</mo></math>
+will contain
+<math><mi>n</mi><mo>&minus;</mo><mn>1</mn></math>
+in its second component.
 </p>
-<p>The pair (𝑎,𝑏) can be represented by the function
-λ𝑓.𝑓𝑎𝑏.
-Applying a select-first function yields 𝑎,
-and applying a select-second function yields 𝑏.
-We have those, they are 𝐓 and 𝐅, respectively.
+<p>The pair
+<math><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo></math>
+can be represented by the function
+<math>
+ <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+ <mi>f</mi><mi>a</mi><mi>b</mi>
+</math>.
+Applying a select-first function yields
+<math><mi>a</mi></math>
+and applying a select-second function yields
+<math><mi>b</mi></math>.
+We have those,
+they are <math><mi>𝐓</mi></math>
+and <math><mi>𝐅</mi></math>, respectively.
 Our partial-predecessor function is then
-λ𝑝.λ𝑓.𝑓(𝐒(𝑝𝐓))(𝑝𝐓).
-Take a pair 𝑝&nbsp;≡&nbsp;(𝑎,𝑏)
-and return a new pair whose first component is 𝑎+1
-and whose second component is just 𝑎.
-Then 𝐏&nbsp;≡&nbsp;λ𝑛.𝑛(λ𝑝.λ𝑓.𝑓(𝐒(𝑝𝐓))(𝑝𝐓))(λ𝑓.𝑓𝟎𝟎)𝐅.
+<math>
+ <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+ <mi>f</mi>
+ <mrow>
+  <mo>(</mo>
+   <mi>𝐒</mi>
+   <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+  <mo>)</mo>
+ </mrow>
+ <mrow>
+  <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+ </mrow>
+</math>.
+Take a pair
+<math>
+ <mi>p</mi>
+ <mo>≡</mo>
+ <mrow><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo></mrow>
+</math>
+and return a new pair whose first component is
+<math><mi>a</mi><mo>+</mo><mn>1</mn></math>
+and whose second component is just <math><mi>a</mi></math>.
+Then
+<math>
+ <mi>𝐏</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>n</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi>
+    <mrow>
+     <mo>(</mo><mi>𝐒</mi>
+      <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+     <mo>)</mo>
+    </mrow>
+    <mrow>
+     <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+    </mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mrow>
+    <mo>(</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+     <mi>f</mi><mn>𝟎</mn><mn>𝟎</mn>
+    <mo>)</mo>
+   </mrow>
+   <mi>𝐅</mi>
+  </mrow>
+ </mrow>
+</math>.
 </p>
 <p>With that in place, we have clamped subtraction,
 sometimes called &ldquo;monus&rdquo;.
-The difference 𝑥∸𝑦
-is 𝑦 iterations of the predecessor function to 𝑥:
-∸&nbsp;≡&nbsp;λ𝑥.λ𝑦.𝑦𝐏𝑥.
-As 𝐏𝟎&nbsp;≡&nbsp;𝟎,
-we have that ∸𝑥𝑦 is zero
-if and only if 𝑥&nbsp;≤&nbsp;𝑦.
-Define ≤&nbsp;≡&nbsp;λ𝑥.λ𝑦.𝐙(∸𝑥𝑦).
-Two natural numbers are equal if each is less than or equal to the other;
-define equality, =, as
-λ𝑥.λ𝑦.∧(≤𝑥𝑦)(≤𝑦𝑥).
+The difference
+<math><mi>x</mi><mo>∸</mo><mi>y</mi></math>
+is <math><mi>y</mi></math> iterations
+of the predecessor function to <math><mi>x</mi></math>:
+<math>
+ <mo lspace="0" rspace="0">∸</mo>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>y</mi><mi>𝐏</mi><mi>x</mi>
+ </mrow>
+</math>.
+As
+<math>
+ <mrow><mi>𝐏</mi><mn>𝟎</mn></mrow>
+ <mo>≡</mo>
+ <mn>𝟎</mn>
+</math>,
+we have that
+<math><mo lspace="0" rspace="0">∸</mo><mi>x</mi><mi>y</mi></math>
+is zero
+if and only if
+<math><mi>x</mi><mo>≤</mo><mi>y</mi></math>.
+Define
+<math>
+ <mo lspace="0" rspace="0">≤</mo>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>𝐙</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">∸</mo><mi>x</mi><mi>y</mi>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
+Two natural numbers are equal
+if each is less than or equal to the other;
+define equality, <math><mo lspace="0" rspace="0">=</mo></math>, as
+<math>
+ <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+ <mo lspace="0" rspace="0">∧</mo>
+ <mrow>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">≤</mo><mi>x</mi><mi>y</mi>
+  <mo>)</mo>
+ </mrow>
+ <mrow>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">≤</mo><mi>y</mi><mi>x</mi>
+  <mo>)</mo>
+ </mrow>
+</math>.
 The other possibilities can easily be defined in terms of these.
 </p>
 <table>
 <thead><tr><th>Object</th><th>Expression</th></tr></thead>
 <tbody>
 <tr>
- <td>𝟎</td>
- <td>λ𝑥.λ𝑦.𝑦</td>
+ <td><math><mn>𝟎</mn></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mi>y</mi>
+ </math></td>
 </tr>
 <tr>
- <td>𝐒 (successor)</td>
- <td>λ𝑛.λ𝑓.λ𝑥.𝑓(𝑛𝑓𝑥)</td>
+ <td><math><mi>𝐒</mi></math> (successor)</td>
+ <td><math>
+  <mrow>
+   <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+   <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+   <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+   <mi>f</mi>
+   <mrow><mo>(</mo>
+    <mi>n</mi><mi>f</mi><mi>x</mi>
+   <mo>)</mo></mrow>
+  </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>𝐏 (clamped predecessor)</td>
- <td>λ𝑛.𝑛(λ𝑝.λ𝑓.𝑓(𝐒(𝑝𝐓))(𝑝𝐓))(λ𝑓.𝑓𝟎𝟎)𝐅</td>
+ <td><math><mi>𝐏</mi></math> (clamped predecessor)</td>
+ <td><math>
+  <mrow>
+   <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+   <mi>n</mi>
+   <mrow>
+    <mo>(</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+     <mi>f</mi>
+     <mrow>
+      <mo>(</mo><mi>𝐒</mi>
+       <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+      <mo>)</mo>
+     </mrow>
+     <mrow>
+      <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+     </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mrow>
+    <mrow>
+     <mo>(</mo>
+      <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+      <mi>f</mi><mn>𝟎</mn><mn>𝟎</mn>
+     <mo>)</mo>
+    </mrow>
+    <mi>𝐅</mi>
+   </mrow>
+  </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>𝐙 (zero?)</td>
- <td>λ𝑛.𝑛(𝐓𝐅)𝐓</td>
+ <td><math><mi>𝐙</mi></math> (zero?)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>n</mi>
+  <mo>(</mo><mi>𝐓</mi><mi>𝐅</mi><mo>)</mo>
+  <mi>𝐓</mi>
+ </math></td>
 </tr>
 <tr>
- <td>+</td>
- <td>λ𝑚.𝑚𝐒</td>
+ <td><math><mo lspace="0" rspace="0">+</mo></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mi>m</mi><mi>𝐒</mi>
+ </math></td>
 </tr>
 <tr>
- <td>∸ (&ldquo;monus&rdquo;)</td>
- <td>λ𝑚.λ𝑛.𝑛𝐏𝑚</td>
+ <td><math><mo lspace="0" rspace="0">∸</mo></math>
+  (&ldquo;monus&rdquo;)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>n</mi><mi>𝐏</mi><mi>m</mi>
+ </math></td>
 </tr>
 <tr>
- <td>×</td>
- <td>λ𝑚.λ𝑛.λ𝑓.𝑚(𝑛𝑓)</td>
+ <td><math><mo lspace="0" rspace="0">×</mo></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>m</mi><mo>(</mo><mi>n</mi><mi>f</mi><mo>)</mo>
+ </math></td>
 </tr>
 <tr>
- <td>≤</td>
- <td>λ𝑚.λ𝑛.𝐙(∸𝑚𝑛)</td>
+ <td><math><mo lspace="0" rspace="0">≤</mo></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>𝐙</mi>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">∸</mo><mi>m</mi><mi>n</mi>
+  <mo>)</mo>
+ </math></td>
 </tr>
 <tr>
- <td>=</td>
- <td>λ𝑚.λ𝑛.∧(≤𝑚𝑛)(≤𝑛𝑚)</td>
+ <td><math><mo lspace="0" rspace="0">=</mo></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>y</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">∧</mo>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">≤</mo><mi>x</mi><mi>y</mi>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">≤</mo><mi>y</mi><mi>x</mi>
+   <mo>)</mo>
+  </mrow>
+ </math></td>
 </tr>
 </tbody>
 </table>
@@ -383,60 +1194,314 @@ containing a sign bit and a magnitude.
 Those familiar with foundational set theory, however,
 may be aware of a different representation,
 which does not use Boolean values.
-Instead, integers are represented by pairs,
-where (𝑥,𝑦) represents
-the integer 𝑥&minus;𝑦.
+Instead, integers are represented by pairs, where
+<math><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo></math>
+represents the integer
+<math><mi>x</mi><mo>&minus;</mo><mi>y</mi></math>.
 Each possible integer has infinitely many representative pairs,
 but this representation is easier to work with.
 </p>
 <p>For instance, addition is pointwise.
-The pair (𝑥,𝑦) represents 𝑥&minus;𝑦,
-and (𝑎,𝑏) represents 𝑎&minus;𝑏,
-and (𝑥+𝑎,𝑦+𝑏)
+The pair
+<math><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo></math>
+represents <math><mi>x</mi><mo>&minus;</mo><mi>y</mi></math>,
+and <math><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo></math>
+represents <math><mi>a</mi><mo>&minus;</mo><mi>b</mi></math>,
+and
+<math>
+ <mo>(</mo>
+  <mrow><mi>x</mi><mo>+</mo><mi>a</mi></mrow>
+ <mo>,</mo>
+  <mrow><mi>y</mi><mo>+</mo><mi>b</mi></mrow>
+ <mo>)</mo>
+</math>
 represents
-(𝑥+𝑎)&minus;(𝑦+𝑏)
-≡&nbsp;𝑥+𝑎&minus;𝑦&minus;𝑏
-≡&nbsp;(𝑥&minus;𝑦)+(𝑎&minus;𝑏).
+<math>
+ <mrow>
+  <mrow><mo>(</mo><mi>x</mi><mo>+</mo><mi>a</mi><mo>)</mo></mrow>
+  <mo>&minus;</mo>
+  <mrow><mo>(</mo><mi>y</mi><mo>+</mo><mi>b</mi><mo>)</mo></mrow>
+ </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mrow>
+  <mi>x</mi>
+  <mo>+</mo><mi>a</mi>
+  <mo>&minus;</mo><mi>y</mi>
+  <mo>&minus;</mo><mi>b</mi>
+ </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mrow>
+  <mrow>
+   <mo>(</mo><mi>x</mi><mo>&minus;</mo><mi>𝑦</mi><mo>)</mo>
+  </mrow>
+  <mo>+</mo>
+  <mrow>
+   <mo>(</mo><mi>a</mi><mo>&minus;</mo><mi>b</mi><mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
 Recall that a pair selects a function and applies it
 with its two components as arguments, in order,
-and that 𝐓 selects the first and 𝐅 selects the second.
-Define +<sub>Z</sub>&nbsp;≡&nbsp;λ𝑝.λ𝑟.λ𝑓.𝑓(+(𝑝𝐓)(𝑟𝐓))(+(𝑝𝐅)(𝑟𝐅));
-take two pairs 𝑝 and 𝑟 representing integers,
+and that <math><mi>𝐓</mi></math> selects the first
+and <math><mi>𝐅</mi></math> selects the second.
+Define
+<math>
+ <msub>
+  <mo lspace="0" rspace="0">+</mo>
+  <mi>Z</mi>
+ </msub>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>r</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow><mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo></mrow>
+    <mrow><mo>(</mo><mi>r</mi><mi>𝐓</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow><mo>(</mo><mi>p</mi><mi>𝐅</mi><mo>)</mo></mrow>
+    <mrow><mo>(</mo><mi>r</mi><mi>𝐅</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>;
+take two pairs
+<math><mi>p</mi></math> and <math><mi>r</mi></math>
+representing integers,
 then return the pair obtained by adding each component separately.
 </p>
-<p>If (𝑥,𝑦) represents 𝑥&minus;𝑦,
+<p>If
+<math><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo></math>
+represents
+<math><mi>x</mi><mo>&minus;</mo><mi>y</mi></math>,
 then
-&minus;(𝑥&minus;𝑦)&nbsp;≡&nbsp;𝑦&minus;𝑥
-is represented by (𝑦,𝑥).
+<math>
+ <mrow>
+  <mo>&minus;</mo>
+  <mo>(</mo><mi>x</mi><mo>&minus;</mo><mi>y</mi><mo>)</mo>
+ </mrow>
+ <mo>≡</mo>
+ <mrow>
+  <mi>y</mi><mo>&minus;</mo><mi>x</mi>
+ </mrow>
+</math>
+is represented by
+<math><mo>(</mo><mi>y</mi><mo>,</mo><mi>x</mi><mo>)</mo></math>.
 Negation is to flip the pair:
-𝐍&nbsp;≡&nbsp;λ𝑝.λ𝑓.𝑓(𝑝𝐅)(𝑝𝐓).
+<math>
+ <mi>𝐍</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow><mo>(</mo><mi>p</mi><mi>𝐅</mi><mo>)</mo></mrow>
+  <mrow><mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo></mrow>
+ </mrow>
+</math>.
 To subtract two integers, we can define
-&minus;<sub>Z</sub>&nbsp;≡&nbsp;λ𝑚.λ𝑛.+<sub>Z</sub>𝑚(𝐍𝑛).
+<math>
+ <msub>
+  <mo lspace="0" rspace="0">&minus;</mo>
+  <mi>Z</mi>
+ </msub>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <msub><mo lspace="0" rspace="0">+</mo><mi>Z</mi></msub>
+  <mi>m</mi>
+  <mrow><mo>(</mo><mi>𝐍</mi><mi>n</mi><mo>)</mo></mrow>
+ </mrow>
+</math>.
 After expansion and simplification,
-&minus;<sub>Z</sub>&nbsp;≡&nbsp;λ𝑝.λ𝑟.λ𝑓.𝑓(+(𝑝𝐓)(𝑟𝐅))(+(𝑝𝐅)(𝑟𝐓)).
+<math>
+ <msub>
+  <mo lspace="0" rspace="0">&minus;</mo>
+  <mi>Z</mi>
+ </msub>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>r</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow><mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo></mrow>
+    <mrow><mo>(</mo><mi>r</mi><mi>𝐅</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow><mo>(</mo><mi>p</mi><mi>𝐅</mi><mo>)</mo></mrow>
+    <mrow><mo>(</mo><mi>r</mi><mi>𝐓</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
 </p>
-<p>Recall that (∸𝑥𝑦) represents
-max(𝑥&minus;𝑦,0).
-If 𝑥≤𝑦, this is 0,
-but if 𝑥≥𝑦, this is 𝑥&minus;𝑦.
+<p>Recall that
+<math>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">∸</mo><mi>x</mi><mi>y</mi>
+ <mo>)</mo>
+</math> represents
+<math>
+ <mi>max</mi><mo>(</mo>
+  <mi>x</mi><mo>&minus;</mo><mi>y</mi>
+  <mo>,</mo>
+  <mn>0</mn>
+ <mo>)</mo>
+</math>.
+If <math><mi>x</mi><mo>≤</mo><mi>y</mi></math>,
+this is <math><mn>0</mn></math>,
+but if <math><mi>x</mi><mo>≥</mo><mi>y</mi></math>,
+this is <math><mi>x</mi><mo>&minus;</mo><mi>y</mi></math>.
 By trichotomy,
-+(∸𝑥𝑦)(∸𝑦𝑥)
-is the absolute value of 𝑥&minus;𝑦.
+<math>
+ <mo lspace="0" rspace="0">+</mo>
+ <mrow>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">∸</mo><mi>x</mi><mi>y</mi>
+  <mo>)</mo>
+ </mrow>
+ <mrow>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">∸</mo><mi>y</mi><mi>x</mi>
+  <mo>)</mo>
+ </mrow>
+</math>
+is the absolute value of
+<math><mi>x</mi><mo>&minus;</mo><mi>𝑦</mi></math>.
 Thus, to obtain the absolute value of an integer
-as a natural number, we can define
-𝐀&nbsp;≡&nbsp;λ𝑥.+(𝑥∸)(𝑥(λ𝑎.λ𝑏.𝑎𝐏𝑏))&nbsp;≡&nbsp;λ𝑥.+(𝑥∸)(𝑥(λ𝑎.𝑎𝐏)).
+as a natural number, we define
+<math>
+ <mi>𝐀</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">+</mo>
+  <mrow>
+   <mo>(</mo>
+    <mi>x</mi><mo lspace="0" rspace="0">∸</mo>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mi>x</mi>
+    <mo>(</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>b</mi><mo lspace="0">.</mo>
+     <mi>a</mi><mi>𝐏</mi><mi>b</mi>
+    <mo>)</mo>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">+</mo>
+  <mrow>
+   <mo>(</mo>
+    <mi>x</mi><mo lspace="0" rspace="0">∸</mo>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mi>x</mi>
+    <mo>(</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+     <mi>a</mi><mi>𝐏</mi>
+    <mo>)</mo>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
 To test whether an integer is zero
-is to test whether its absolute value is zero,
-so 𝐙<sub>Z</sub>&nbsp;≡&nbsp;λ𝑛.𝐙(𝐀𝑛).
+is to test whether its absolute value is zero, so
+<math>
+ <msub>
+  <mi>𝐙</mi>
+  <mi>Z</mi>
+ </msub>
+ <mo>≡</mo>
+ <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+ <mi>𝐙</mi>
+ <mo>(</mo><mi>𝐀</mi><mi>n</mi><mo>)</mo>
+</math>.
 </p>
 <p>Finally, to multiply integers,
 note that the distributive property holds:
-𝑘⋅(𝑥&minus;𝑦)&nbsp;≡&nbsp;𝑘⋅𝑥&minus;𝑘⋅𝑦.
+<math>
+ <mrow>
+  <mi>k</mi>
+  <mo>⋅</mo>
+  <mo>(</mo><mi>x</mi><mo>&minus;</mo><mi>y</mi><mo>)</mo>
+ </mrow>
+ <mo>≡</mo>
+ <mrow>
+  <mrow><mi>k</mi><mo>⋅</mo><mi>x</mi></mrow>
+  <mo>&minus;</mo>
+  <mrow><mi>k</mi><mo>⋅</mo><mi>y</mi></mrow>
+ </mrow>
+</math>.
 So we want to multiply each component of one pair
 by the absolute value of the other pair,
 and negate the result if necessary.
 Define
-×<sub>Z</sub>&nbsp;≡&nbsp;λ𝑚.λ𝑛.𝑚≤𝐍(𝟎𝐍)(λ𝑓.(×(𝐀𝑚)(𝑛𝐓))(×(𝐀𝑚)(𝑛𝐅))).
+<math>
+ <msub>
+  <mo lspace="0" rspace="0">×</mo>
+  <mi>Z</mi>
+ </msub>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>m</mi>
+  <mo lspace="0" rspace="0">≤</mo>
+  <mi>𝐍</mi>
+  <mrow>
+   <mo>(</mo>
+    <mn>𝟎</mn><mi>𝐍</mi>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi>
+    <mrow>
+     <mo>(</mo>
+      <mo lspace="0" rspace="0">×</mo>
+      <mo>(</mo><mi>𝐀</mi><mi>m</mi><mo>)</mo>
+      <mo>(</mo><mi>n</mi><mi>𝐓</mi><mo>)</mo>
+     <mo>)</mo>
+    </mrow>
+    <mrow>
+     <mo>(</mo>
+      <mo lspace="0" rspace="0">×</mo>
+      <mo>(</mo><mi>𝐀</mi><mi>m</mi><mo>)</mo>
+      <mo>(</mo><mi>n</mi><mi>𝐅</mi><mo>)</mo>
+     <mo>)</mo>
+    </mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
 </p>
 <table>
 <thead><tr>
@@ -444,24 +1509,120 @@ Define
 </tr></thead>
 <tbody>
 <tr>
- <td>𝐀 (absolute value)</td>
- <td>λ𝑛.+(𝑛∸)(𝑛(λ𝑎.𝑎𝐏))</td>
+ <td><math><mi>𝐀</mi></math> (absolute value)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">+</mo>
+  <mrow>
+   <mo>(</mo>
+    <mi>n</mi><mo lspace="0" rspace="0">∸</mo>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mi>n</mi>
+    <mo>(</mo>
+     <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+     <mi>a</mi><mi>𝐏</mi>
+    <mo>)</mo>
+   <mo>)</mo>
+  </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>𝐙<sub>Z</sub></td>
- <td>λ𝑛.𝐙(𝐀𝑛)</td>
+ <td><math><msub><mi>𝐙</mi><mi>Z</mi></msub></math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>𝐙</mi>
+  <mo>(</mo><mi>𝐀</mi><mi>n</mi><mo>)</mo>
+ </math></td>
 </tr>
 <tr>
- <td>+<sub>Z</sub></td>
- <td>λ𝑚.λ𝑛.λ𝑓.𝑓(+(𝑚𝐓)(𝑛𝐓))(+(𝑚𝐅)(𝑛𝐅))</td>
+ <td><math>
+  <msub><mo lspace="0" rspace="0">+</mo><mi>Z</mi></msub>
+ </math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow><mo>(</mo><mi>m</mi><mi>𝐓</mi><mo>)</mo></mrow>
+    <mrow><mo>(</mo><mi>n</mi><mi>𝐓</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow><mo>(</mo><mi>m</mi><mi>𝐅</mi><mo>)</mo></mrow>
+    <mrow><mo>(</mo><mi>n</mi><mi>𝐅</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>&minus;<sub>Z</sub></td>
- <td>λ𝑚.λ𝑛.λ𝑓.𝑓(+(𝑚𝐓)(𝑛𝐅))(+(𝑚𝐅)(𝑛𝐓))</td>
+ <td><math>
+  <msub><mo lspace="0" rspace="0">&minus;</mo><mi>Z</mi></msub>
+ </math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow><mo>(</mo><mi>m</mi><mi>𝐓</mi><mo>)</mo></mrow>
+    <mrow><mo>(</mo><mi>n</mi><mi>𝐅</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow><mo>(</mo><mi>m</mi><mi>𝐅</mi><mo>)</mo></mrow>
+    <mrow><mo>(</mo><mi>n</mi><mi>𝐓</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>×<sub>Z</sub></td>
- <td>λ𝑚.λ𝑛.𝑚≤𝐍(𝟎𝐍)(λ𝑓.(×(𝐀𝑚)(𝑛𝐓))(×(𝐀𝑚)(𝑛𝐅)))</td>
+ <td><math>
+  <msub><mo lspace="0" rspace="0">×</mo><mi>Z</mi></msub>
+ </math></td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>m</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>m</mi>
+  <mo lspace="0" rspace="0">≤</mo>
+  <mi>𝐍</mi>
+  <mrow>
+   <mo>(</mo>
+    <mn>𝟎</mn><mi>𝐍</mi>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi>
+    <mrow>
+     <mo>(</mo>
+      <mo lspace="0" rspace="0">×</mo>
+      <mo>(</mo><mi>𝐀</mi><mi>m</mi><mo>)</mo>
+      <mo>(</mo><mi>n</mi><mi>𝐓</mi><mo>)</mo>
+     <mo>)</mo>
+    </mrow>
+    <mrow>
+     <mo>(</mo>
+      <mo lspace="0" rspace="0">×</mo>
+      <mo>(</mo><mi>𝐀</mi><mi>m</mi><mo>)</mo>
+      <mo>(</mo><mi>n</mi><mi>𝐅</mi><mo>)</mo>
+     <mo>)</mo>
+    </mrow>
+   <mo>)</mo>
+  </mrow>
+ </math></td>
 </tr>
 </tbody>
 </table>
@@ -472,86 +1633,291 @@ one might naturally want to represent a list of numbers.
 Recall that in defining integers
 we used pairs, represented by functions
 that take (essentially) two-argument functions as input.
-Given a pair 𝑝 of natural numbers,
-𝑝𝐓 is the first,
-𝑝𝐅 is the second,
-𝑝+ is their sum, and so on.
+Given a pair <math><mi>p</mi></math> of natural numbers,
+<math><mi>p</mi><mi>𝐓</mi></math> is the first,
+<math><mi>p</mi><mi>𝐅</mi></math> is the second,
+<math><mi>p</mi><mo lspace="0" rspace="0">+</mo></math> is their sum,
+and so on.
 To represent a list,
 we might consider a similar sort of configuration:
-a list 𝐿 is a function which takes as its arguments
-a binary operation 𝑓 and a default value 𝑥.
+a list <math><mi>L</mi></math>
+is a function which takes as its arguments
+a binary operation <math><mi>f</mi></math>
+and a default value <math><mi>x</mi></math>.
 If the list is empty, then application yields the default value,
-𝐿𝑓𝑥&nbsp;≡&nbsp;𝑥.
-Otherwise, the list has a head ℎ and a tail 𝑡,
+<math>
+ <mrow><mi>L</mi><mi>f</mi><mi>x</mi></mrow>
+ <mo>≡</mo>
+ <mi>x</mi>
+</math>.
+Otherwise, the list has a head <math><mi>h</mi></math>
+and a tail <math><mi>t</mi></math>,
 and the application yields
-𝐿𝑓𝑥&nbsp;≡&nbsp;𝑓ℎ(𝑡𝑓𝑥).
+<math>
+ <mrow><mi>L</mi><mi>f</mi><mi>x</mi></mrow>
+ <mo>≡</mo>
+ <mrow>
+  <mi>f</mi><mi>h</mi>
+  <mo>(</mo><mi>t</mi><mi>f</mi><mi>x</mi><mo>)</mo>
+ </mrow>
+</math>.
 </p>
 <p>This gives us exactly the information that we need
 in order to construct something akin to a linked list.
 Like zero and falsity,
 the empty list ignores its first argument and returns its second:
-∅&nbsp;≡&nbsp;𝟎.
-Then to cons a head ℎ onto a tail 𝑡,
+<math>
+ <mi>∅</mi>
+ <mo>≡</mo>
+ <mn>𝟎</mn>
+</math>.
+Then to cons a head <math><mi>h</mi></math>
+onto a tail <math><mi>t</mi></math>,
 we can use
-𝐂&nbsp;≡&nbsp;λℎ.λ𝑡.λ𝑓.λ𝑥.𝑓ℎ(𝑡𝑓𝑥).
+<math>
+ <mi>𝐂</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>h</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>t</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>f</mi><mi>h</mi>
+  <mo>(</mo><mi>t</mi><mi>f</mi><mi>x</mi><mo>)</mo>
+ </mrow>
+</math>.
 </p>
 <p>A function which takes a list of integers
 and returns their sum is
-Σ&nbsp;≡&nbsp;λ𝑎.𝑎+<sub>Z</sub>(λ𝑓.𝑓𝟎𝟎).
+<math>
+ <mi>Σ</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi>
+  <msub><mo lspace="0" rspace="0">+</mo><mi>Z</mi></msub>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi><mn>𝟎</mn><mn>𝟎</mn>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
 The product is
-Π&nbsp;≡&nbsp;λ𝑎.𝑎×<sub>Z</sub>(λ𝑓.𝑓(𝐒𝟎)𝟎).
+<math>
+ <mi>Π</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi>
+  <msub><mo lspace="0" rspace="0">×</mo><mi>Z</mi></msub>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi>
+    <mrow>
+     <mo>(</mo>
+      <mi>𝐒</mi><mn>𝟎</mn>
+     <mo>)</mo>
+    </mrow>
+    <mn>𝟎</mn>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
 To get the length, the function should ignore the head
 and return the successor of the result,
 and the default value should be the natural number zero:
-𝐋&nbsp;≡&nbsp;λ𝑎.𝑎(λℎ.𝐒)𝟎.
-To extract the head, or return 𝐅 in the case of an empty list,
-define 𝐇&nbsp;≡&nbsp;λ𝑎.𝑎𝐓𝐅.
+<math>
+ <mi>𝐋</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>h</mi><mo lspace="0">.</mo>
+    <mi>𝐒</mi>
+   <mo>)</mo>
+  </mrow>
+  <mn>𝟎</mn>
+ </mrow>
+</math>.
+To extract the head, or return <math><mi>𝐅</mi></math>
+in the case of an empty list, define
+<math>
+ <mi>𝐇</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi><mi>𝐓</mi><mi>𝐅</mi>
+ </mrow>
+</math>.
 Finally, to extract the tail, we use a technique similar to that
 used for finding the predecessor of a natural number.
 The initial value is a pair consisting of two copies of the empty set.
-The binary operation takes the head ℎ of the list
-and such a pair (𝑥,𝑦),
-and returns (𝐂ℎ𝑥,𝑥).
+The binary operation takes the head <math><mi>h</mi></math> of the list
+and such a pair
+<math><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo></math>,
+and returns
+<math>
+ <mo>(</mo>
+  <mi>𝐂</mi><mi>h</mi><mi>x</mi><mo>,</mo><mi>x</mi>
+ <mo>)</mo>
+</math>.
 The tail in the end is the second component:
-↓&nbsp;≡&nbsp;λ𝑎.𝑎(λℎ.λ𝑝.λ𝑓.𝑓(𝐂ℎ(𝑝𝐓))(𝑝𝐓))(λ𝑓.𝑓∅∅)𝐅.
+<math>
+ <mo lspace="0" rspace="0">↓</mo>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>h</mi><mo lspace="0">.</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi>
+    <mo>(</mo>
+     <mi>𝐂</mi><mi>h</mi>
+      <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+    <mo>)</mo>
+    <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi><mi>∅</mi><mi>∅</mi>
+   <mo>)</mo>
+  </mrow>
+  <mi>𝐅</mi>
+ </mrow>
+</math>.
 This, with repeated application gives an indexing function:
-drop 𝑛 elements and take the head:
-@&nbsp;≡&nbsp;λ𝑎.λ𝑛.𝐇(𝑛↓𝑎).
+drop <math><mi>n</mi></math> elements and take the head:
+<math>
+ <mo lspace="0" rspace="0">@</mo>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>𝐇</mi><mo>(</mo>
+   <mi>n</mi><mo lspace="0" rspace="0">↓</mo><mi>𝑎</mi>
+  <mo>)</mo>
+ </mrow>
+</math>.
 </p>
 <table>
 <thead><tr><th>Operation</th><th>Expression</th></tr></thead>
 <tbody>
 <tr>
- <td>∅ (empty)</td>
- <td>𝟎</td>
+ <td><math><mi>∅</mi></math> (empty)</td>
+ <td><math><mn>𝟎</mn></math></td>
 </tr>
 <tr>
- <td>𝐂 (cons)</td>
- <td>λℎ.λ𝑡.λ𝑓.λ𝑥.𝑓ℎ(𝑡𝑓𝑥)</td>
+ <td><math><mi>𝐂</mi></math> (cons)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>h</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>t</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mi>f</mi><mi>h</mi>
+  <mo>(</mo><mi>t</mi><mi>f</mi><mi>x</mi><mo>)</mo>
+ </math></td>
 </tr>
 <tr>
- <td>Σ (sum)</td>
- <td>λ𝑎.𝑎+<sub>Z</sub>(λ𝑓.𝑓𝟎𝟎)</td>
+ <td><math><mi>Σ</mi></math> (sum)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi>
+  <msub><mo lspace="0" rspace="0">+</mo><mi>Z</mi></msub>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi><mn>𝟎</mn><mn>𝟎</mn>
+   <mo>)</mo>
+  </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>Π (product)</td>
- <td>λ𝑎.𝑎×<sub>Z</sub>(λ𝑓.𝑓(𝐒𝟎)𝟎)</td>
+ <td><math><mi>Π</mi></math> (product)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi>
+  <msub><mo lspace="0" rspace="0">×</mo><mi>Z</mi></msub>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi>
+    <mrow>
+     <mo>(</mo>
+      <mi>𝐒</mi><mn>𝟎</mn>
+     <mo>)</mo>
+    </mrow>
+    <mn>𝟎</mn>
+   <mo>)</mo>
+  </mrow>
+ </math></td>
 </tr>
 <tr>
- <td>𝐋 (length)</td>
- <td>λ𝑎.𝑎(λℎ.𝐒)𝟎</td>
+ <td><math><mi>𝐋</mi></math> (length)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>h</mi><mo lspace="0">.</mo>
+    <mi>𝐒</mi>
+   <mo>)</mo>
+  </mrow>
+  <mn>𝟎</mn>
+ </math></td>
 </tr>
 <tr>
- <td>𝐇 (head)</td>
- <td>λ𝑎.𝑎𝐓𝐅</td>
+ <td><math><mi>𝐇</mi></math> (head)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi><mi>𝐓</mi><mi>𝐅</mi>
+ </math></td>
 </tr>
 <tr>
- <td>↓ (tail)</td>
- <td>λ𝑎.𝑎(λℎ.λ𝑝.λ𝑓.𝑓(𝐂ℎ(𝑝𝐓))(𝑝𝐓))(λ𝑓.𝑓∅∅)𝐅</td>
+ <td><math><mo lspace="0" rspace="0">↓</mo></math> (tail)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mi>a</mi>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>h</mi><mo lspace="0">.</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>p</mi><mo lspace="0">.</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi>
+    <mo>(</mo>
+     <mi>𝐂</mi><mi>h</mi>
+      <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+    <mo>)</mo>
+    <mo>(</mo><mi>p</mi><mi>𝐓</mi><mo>)</mo>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+    <mi>f</mi><mi>∅</mi><mi>∅</mi>
+   <mo>)</mo>
+  </mrow>
+  <mi>𝐅</mi>
+ </math></td>
 </tr>
 <tr>
- <td>@ (index)</td>
- <td>λ𝑎.λ𝑛.𝐇(𝑛↓𝑎)</td>
+ <td><math><mo lspace="0" rspace="0">@</mo></math> (index)</td>
+ <td><math>
+  <mo lspace="0" rspace="0">λ</mo><mi>a</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>𝐇</mi><mo>(</mo>
+   <mi>n</mi><mo lspace="0" rspace="0">↓</mo><mi>𝑎</mi>
+  <mo>)</mo>
+ </math></td>
 </tr>
 </tbody>
 </table>
@@ -561,76 +1927,389 @@ drop 𝑛 elements and take the head:
 This is both because we have not needed such power
 and because the λ-calculus does not support recursion at all.
 Suppose we want to find the sum of the natural numbers
-up to and including 𝑛.
+up to and including <math><mi>n</mi></math>.
 Now, of course, we know that the result should be
-𝑛(𝑛+1)/2,
+<math>
+ <mi>n</mi><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo>
+ <mo>/</mo>
+ <mn>2</mn>
+</math>,
 but, alas, we have yet to define a division function.
 Rather than incorporate division,
 let us consider how we might compute this result.
 </p>
-<p>One method is to create a function φ that will map a pair
-(𝑥,𝑎) to a new pair
-(𝑥+1,𝑎+𝑥+1).
-Applying this function thrice to (0,0) proceeds as follows:
-(0,0) becomes (1,1), which becomes (2,3), which finally becomes (3,6).
-In general, upon 𝑛 applications,
-the first component is 𝑛
+<p>One method is to create a function
+<math><mi>φ</mi></math> that will map a pair
+<math><mo>(</mo><mi>x</mi><mo>,</mo><mi>a</mi><mo>)</mo></math>
+to a new pair
+<math>
+ <mo>(</mo>
+  <mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow>
+ <mo>,</mo>
+  <mrow><mi>a</mi><mo>+</mo><mi>x</mi><mo>+</mo><mn>1</mn></mrow>
+ <mo>)</mo>
+</math>.
+Applying this function thrice to
+<math><mo>(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>)</mo></math>
+proceeds as follows:
+<math><mo>(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo>)</mo></math>
+becomes
+<math><mo>(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>)</mo></math>,
+which becomes
+<math><mo>(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>)</mo></math>,
+which finally becomes
+<math><mo>(</mo><mn>3</mn><mo>,</mo><mn>6</mn><mo>)</mo></math>.
+In general, upon <math><mi>n</mi></math> applications,
+the first component is <math><mi>n</mi></math>
 and the second component is the sum of the natural numbers
-up to and including 𝑛.
+up to and including <math><mi>n</mi></math>.
 Because numbers in the λ-calculus represent repeated application,
 this satisfies the requirement.
-Define φ&nbsp;≡&nbsp;λ𝑥.λ𝑓.𝑓(𝐒(𝑥𝐓))(+(𝐒(𝑥𝐓))(𝑥𝐅)).
-Then define Δ&nbsp;≡&nbsp;λ𝑛.𝑛φ(λ𝑓.𝑓𝟎𝟎)𝐅
+Define
+<math>
+ <mi>φ</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mi>f</mi>
+  <mrow>
+   <mo>(</mo>
+    <mi>𝐒</mi><mo>(</mo><mi>x</mi><mi>𝐓</mi><mo>)</mo>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">+</mo>
+    <mrow>
+     <mo>(</mo>
+      <mi>𝐒</mi><mo>(</mo><mi>x</mi><mi>𝐓</mi><mo>)</mo>
+     <mo>)</mo>
+    </mrow>
+    <mo>(</mo><mi>x</mi><mi>𝐅</mi><mo>)</mo>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
+Then define
+<math>
+ <mi>Δ</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>n</mi><mi>φ</mi>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+   <mi>f</mi><mn>𝟎</mn><mn>𝟎</mn>
+  <mo>)</mo>
+  <mi>𝐅</mi>
+ </mrow>
+</math>
 to compute the desired sum.
 This is essentially a functionalization
 of the iterative solution to the problem.
 </p>
 <p>Another high-level approach would be to use a recursive function:
-Δ(𝑛) is 0 if 𝑛 is 0,
-else it is 𝑛+Δ(𝑛&minus;1).
+<math><mi>Δ</mi><mo>(</mo><mi>n</mi><mo>)</mo></math> is 0
+if <math><mi>n</mi></math> is 0,
+else it is
+<math>
+ <mi>n</mi>
+ <mo>+</mo>
+ <mi>Δ</mi><mo>(</mo>
+  <mrow><mi>n</mi><mo>&minus;</mo><mn>1</mn></mrow>
+ <mo>)</mo>
+</math>.
 But we cannot say
-[<em>invalid:</em> Δ&nbsp;≡&nbsp;λ𝑛.𝐙𝑛𝟎(+𝑛(Δ(𝐏𝑛)))],
+[<em>invalid:</em>
+<math>
+ <mi>Δ</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>𝐙</mi><mi>n</mi><mn>𝟎</mn>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">+</mo>
+   <mi>n</mi>
+   <mo>(</mo>
+    <mi>Δ</mi><mo>(</mo><mi>𝐏</mi><mi>n</mi><mo>)</mo>
+   <mo>)</mo>
+  <mo>)</mo>
+ </mrow>
+</math>],
 because this kind of self-reference
 creates an infinitely long formula.
 What we can do is supply as an argument
 the function to be used as the &ldquo;recursive&rdquo; call:
-Δ&nbsp;≡&nbsp;λ𝑓.λ𝑛.𝐙𝑛𝟎(+𝑛(𝑓(𝐏𝑛))).
-Then, as long we provide a sufficiently large stack of Δ,
+<math>
+ <mi>Δ</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>n</mi><mo lspace="0">.</mo>
+  <mi>𝐙</mi>
+  <mi>n</mi>
+  <mn>𝟎</mn>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">+</mo>
+   <mi>n</mi>
+   <mo>(</mo>
+    <mi>f</mi><mo>(</mo><mi>𝐏</mi><mi>n</mi><mo>)</mo>
+   <mo>)</mo>
+  <mo>)</mo>
+ </mrow>
+</math>.
+Then, as long as we provide a sufficiently large stack of
+<math><mi>Δ</mi></math>,
 we can recursively compute the solution:
-Δ(Δ(Δ(ΔΔ)))𝟑&nbsp;≡&nbsp;(+𝟑(Δ(Δ(ΔΔ))𝟐))
-≡&nbsp;(+𝟑(+𝟐(Δ(ΔΔ)𝟏)))
-≡&nbsp;(+𝟑(+𝟐(+𝟏(ΔΔ𝟎))))
-≡&nbsp;(+𝟑(+𝟐(+𝟏(𝟎))))
-≡&nbsp;𝟔.
+<math>
+ <mrow>
+  <mi>Δ</mi><mo>(</mo>
+  <mi>Δ</mi><mo>(</mo>
+  <mi>Δ</mi><mo>(</mo>
+  <mi>Δ</mi><mi>Δ</mi>
+  <mo>)</mo><mo>)</mo>
+  <mo>)</mo><mn>𝟑</mn>
+ </mrow>
+ <mo>≡</mo>
+ <mrow>
+  <mo>(</mo>
+   <mo lspace="0" rspace="0">+</mo>
+   <mn>𝟑</mn>
+   <mo>(</mo><mi>Δ</mi>
+   <mo>(</mo><mi>Δ</mi>
+   <mo>(</mo><mi>Δ</mi>
+   <mi>Δ</mi><mo>)</mo>
+   <mo>)</mo><mn>𝟐</mn><mo>)</mo>
+  <mo>)</mo>
+ </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+  <mo lspace="0" rspace="0">+</mo>
+  <mn>𝟑</mn>
+  <mo>(</mo>
+  <mo lspace="0" rspace="0">+</mo>
+  <mn>𝟐</mn>
+  <mo>(</mo><mi>Δ</mi><mo>(</mo>
+  <mi>Δ</mi><mi>Δ</mi><mo>)</mo>
+  <mn>𝟏</mn><mo>)</mo><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟐</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟏</mn><mo>(</mo>
+ <mi>Δ</mi><mi>Δ</mi><mn>𝟎</mn>
+ <mo>)</mo><mo>)</mo><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟐</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟏</mn><mo>(</mo>
+ <mn>𝟎</mn><mo>)</mo><mo>)</mo><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mn>𝟔</mn>
+</math>.
 Then what we want is some way
-to get a sufficiently tall stack of Δ,
+to get a sufficiently tall stack of <math><mi>Δ</mi></math>,
 no matter the parameter.
 </p>
-<p>Enter the 𝐘 combinator,
+<p>Enter the <math><mi>𝐘</mi></math> combinator,
 defined such that
-𝐘𝑓&nbsp;≡&nbsp;𝑓(𝐘𝑓).
+<math>
+ <mrow><mi>𝐘</mi><mi>f</mi></mrow>
+ <mo>≡</mo>
+ <mrow><mi>f</mi><mo>(</mo><mi>𝐘</mi><mi>f</mi><mo>)</mo></mrow>
+</math>.
 We cannot define it this way, because this uses recursion.
-Instead, we define 𝐘
+Instead, we define <math><mi>𝐘</mi></math>
 such that it accepts a function as an argument,
 then reconstructs itself as an argument to that function:
-𝐘&nbsp;≡&nbsp;λ𝑓.(λ𝑥.𝑓(𝑥𝑥))(λ𝑥.𝑓(𝑥𝑥)).
-Then applying this to a function 𝑔 yields
-𝐘𝑔&nbsp;≡&nbsp;(λ𝑓.(λ𝑥.𝑓(𝑥𝑥))(λ𝑥.𝑓(𝑥𝑥)))𝑔
-≡&nbsp;(λ𝑥.𝑔(𝑥𝑥))(λ𝑥.𝑔(𝑥𝑥))
-≡&nbsp;𝑔((λ𝑥.𝑔(𝑥𝑥))(λ𝑥.𝑔(𝑥𝑥)))
-≡&nbsp;𝑔(𝐘𝑔).
+<math>
+ <mi>𝐘</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>f</mi><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>f</mi><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow>
+</math>.
+Then applying this to a function <math><mi>g</mi></math> yields
+<math>
+ <mi>𝐘</mi><mi>g</mi>
+ <mo>≡</mo>
+ <mrow>
+  <mo>(</mo>
+  <mo lspace="0" rspace="0">λ</mo><mi>f</mi><mo lspace="0">.</mo>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>f</mi><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>f</mi><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>)</mo>
+  <mi>g</mi>
+ </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>g</mi><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>g</mi><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+  <mi>g</mi>
+  <mo>(</mo>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>g</mi><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mrow>
+   <mo>(</mo>
+    <mo lspace="0" rspace="0">λ</mo><mi>x</mi><mo lspace="0">.</mo>
+    <mi>g</mi><mrow><mo>(</mo><mi>x</mi><mi>x</mi><mo>)</mo></mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mi>𝑔</mi><mo>(</mo><mi>𝐘</mi><mi>g</mi><mo>)</mo>
+</math>.
 Now, we have
-𝐘Δ𝟑&nbsp;≡&nbsp;Δ(𝐘Δ)𝟑
-≡&nbsp;(+𝟑(𝐘Δ𝟐))
-≡&nbsp;(+𝟑(Δ(𝐘Δ)𝟐))
-≡&nbsp;(+𝟑(+𝟐(𝐘Δ𝟏)))
-≡&nbsp;(+𝟑(+𝟐(Δ(𝐘Δ)𝟏)))
-≡&nbsp;(+𝟑(+𝟐(+𝟏(𝐘Δ𝟎))))
-≡&nbsp;(+𝟑(+𝟐(+𝟏(Δ(𝐘Δ)𝟎))))
-≡&nbsp;(+𝟑(+𝟐(+𝟏(𝟎))))
-≡&nbsp;𝟔, as desired.
+<math>
+ <mrow>
+  <mi>𝐘</mi>
+  <mi>Δ</mi>
+  <mn>𝟑</mn>
+ </mrow>
+ <mo>≡</mo>
+ <mrow>
+  <mi>Δ</mi><mo>(</mo><mi>𝐘</mi><mi>Δ</mi><mo>)</mo>
+  <mn>𝟑</mn>
+ </mrow>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mi>𝐘</mi><mi>Δ</mi>
+ <mn>𝟐</mn><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mi>Δ</mi><mo>(</mo>
+ <mi>𝐘</mi><mi>Δ</mi><mo>)</mo>
+ <mn>𝟐</mn><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟐</mn><mo>(</mo>
+ <mi>𝐘</mi><mi>Δ</mi>
+ <mn>𝟏</mn><mo>)</mo><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟐</mn><mo>(</mo>
+ <mi>Δ</mi><mo>(</mo><mi>𝐘</mi><mi>Δ</mi><mo>)</mo>
+ <mn>𝟏</mn><mo>)</mo><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟐</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟏</mn><mo>(</mo>
+ <mi>𝐘</mi><mi>Δ</mi><mn>𝟎</mn>
+ <mo>)</mo><mo>)</mo><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟐</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟏</mn><mo>(</mo><mi>Δ</mi><mo>(</mo>
+ <mi>𝐘</mi><mi>Δ</mi><mo>)</mo>
+ <mn>𝟎</mn><mo>)</mo><mo>)</mo><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟑</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟐</mn><mo>(</mo>
+ <mo lspace="0" rspace="0">+</mo>
+ <mn>𝟏</mn><mo>(</mo>
+ <mn>𝟎</mn><mo>)</mo><mo>)</mo><mo>)</mo><mo>)</mo>
+</math>
+<math>
+ <mo lspace="0">≡</mo>
+ <mn>𝟔</mn>
+</math>, as desired.
 We need not concern ourselves with providing an appropriate
-number of Δ, because 𝐘Δ always produces another.
+number of <math><mi>Δ</mi></math>,
+because <math><mi>𝐘</mi><mi>Δ</mi></math>
+always produces another.
 </p>
 
 <h3 id="directions"><a href="#directions">Directions</a></h3>
@@ -644,15 +2323,18 @@ no restriction to a linear pattern of cells.
 Even so, structuring data requires careful thought.
 Using the provided structures and applications as a guide,
 consider trying these additional challenges.
-For how many of them is 𝐘 necessary?
+For how many of them is <math><mi>𝐘</mi></math> necessary?
 </p>
 <ul>
 <li>Define the missing inequalities on natural numbers.</li>
 <li>Define equality and inequalities on integers.</li>
 <li>Define the factorial function on natural numbers,
 where the factorial of zero is one,
-and the factorial of any 𝑛 greater than zero
-is the product of 𝑛 and the factorial of 𝑛&minus;1.</li>
+and the factorial of any
+<math><mi>n</mi></math> greater than zero
+is the product of <math><mi>n</mi></math>
+and the factorial of
+<math><mi>n</mi><mo>&minus;</mo><mn>1</mn></math>.</li>
 <li>Define the integer-division of natural numbers or integers.</li>
 <li>Construct the rational numbers along with appropriate
   addition, subtraction, multiplication and division.</li>
