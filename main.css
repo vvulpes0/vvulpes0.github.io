@@ -153,6 +153,9 @@ ul.refs {
 ul.refs li::marker {
 	color:#888;
 }
+ul.refs li {
+	margin:0 0 1em;
+}
 
 /******************************************************************
  ** Articles / Sections as tabbed windows
