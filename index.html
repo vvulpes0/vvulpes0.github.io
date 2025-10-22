@@ -9,21 +9,15 @@
 <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<label for="darklight" class="dark-mode-selector">
-  <span id="dark">&#x1F315;|&#x1F506;<span>Swap dark/light</span></span
-></label>
-<input type="checkbox" id="darklight" name="darklight">
-<div id="colorscheme">
-<div id="main-content">
 <header>
 <h1>Dakotah Lambert</h1>
 <p><span>dakotah</span><span>lambert</span>@<span>acm.org</span></p>
 <p>Assistant Professor of Computer Science at Lake Forest College</p>
 </header>
-<nav>
+<nav class="bar">
 <h2>Contents</h2>
 <ul>
-<li><a href="/">Home</a></li>
+<li class="current"><a href="/">Home</a></li>
 <li><a href="PDF/cv.pdf">CV</a></li>
 <li><a href="#interests">Interests</a></li>
 <li><a href="#projects">Projects</a></li>
@@ -32,7 +26,6 @@
 <li><a href="/blog.html">Blog</a></li>
 </ul>
 </nav>
-
 <section id="interests">
 <h2>Interests</h2>
 <p>My work lies at the intersection of theoretical computer science,
@@ -78,7 +71,7 @@ This system is also available on
 
 <section id="publications">
 <h2>Publications</h2>
-<ul>
+<ul class="refs">
 <li>Sam van der Poel, Dakotah Lambert, Kalina Kostyszyn, Tiantian Gao,
 Rahul Verma, Derek Andersen, Joanne Chau, Emily Peterson,
 Cody St. Clair, Paul Fodor, Chihiro Shibata, and Jeffrey Heinz.
@@ -223,7 +216,7 @@ Springer Verlag.
 
 <section id="talks">
 <h2>Talks</h2>
-<ul>
+<ul class="refs">
 <li>Dakotah Lambert. 2025.
 <a href="PDF/naphc25.pdf">Tutorial on multifaceted interactive
 analysis of languages and processes</a>.
@@ -262,7 +255,5 @@ February 16.</li>
     https://orcid.org/0000-0002-7056-5950
   </a></p>
 </footer>
-</div>
-</div>
 </body>
 </html>

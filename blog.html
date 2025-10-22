@@ -9,17 +9,11 @@
 <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-<label for="darklight" class="dark-mode-selector">
-  <span id="dark">&#x1F315;|&#x1F506;<span>Swap dark/light</span></span
-></label>
-<input type="checkbox" id="darklight" name="darklight">
-<div id="colorscheme">
-<div id="main-content">
 <header>
 <h1>Dakotah Lambert</h1>
 <p>collected musings</p>
 </header>
-<nav>
+<nav class="bar">
 <h2>Contents</h2>
 <ul>
 <li><a href="/">Home</a></li>
@@ -28,10 +22,10 @@
 <li><a href="/#projects">Projects</a></li>
 <li><a href="/#publications">Publications</a></li>
 <li><a href="/#talks">Talks</a></li>
-<li><a href="/blog.html">Blog</a></li>
+<li class="current"><a href="/blog.html">Blog</a></li>
 </ul>
 </nav>
-<article class="preview">
+<section class="preview">
 <h2><a href="/blog/20241112.html">Foundations:
   The &lambda;-Calculus</a></h2>
 <p class="date">2024 Nov 12 at 01:05</p>
@@ -54,8 +48,8 @@ the &lambda;-calculus has only
 the creation and application of single-argument functions.
 </p>
 <p class="more"><a href="/blog/20241112.html">more&#8230;</a></p>
-</article>
-<article class="preview">
+</section>
+<section class="preview">
 <h2><a href="/blog/20240715.html">Sequential Ejection</a></h2>
 <p class="date">2024 July 15 at 20:46</p>
 <p class="preview">Often, a programmer will be faced with a sequence of data
@@ -73,8 +67,8 @@ that one might implement this,
 and discuss the implications of each.
 </p>
 <p class="more"><a href="/blog/20240715.html">more&#8230;</a></p>
-</article>
-<article class="preview">
+</section>
+<section class="preview">
 <h2><a href="/blog/20240221.html">Object-Oriented Programming</a></h2>
 <p class="date">2024 Feb 21 at 01:53</p>
 <p class="preview">What is object-oriented programming?
@@ -85,7 +79,7 @@ That is, it has very little to do
 with any particular language features.
 </p>
 <p class="more"><a href="/blog/20240221.html">more&#8230;</a></p>
-</article>
+</section>
 <footer>
 <p><a
      id="cy-effective-orcid-url"
@@ -101,7 +95,5 @@ with any particular language features.
     https://orcid.org/0000-0002-7056-5950
   </a></p>
 </footer>
-</div>
-</div>
 </body>
 </html>
