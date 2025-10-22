@@ -37,6 +37,10 @@ table {
 }
 .figure img {
 	border:8px solid #e6e6e6;
+	box-sizing:border-box;
+	max-width:100%;
+	width:auto;
+	height:auto;
 }
 .figure p {
 	font-style:italic;
