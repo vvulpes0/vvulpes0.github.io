@@ -178,8 +178,7 @@ article h2, section h2 {
 	margin:0 -2rem 1rem;
 	border-bottom:2px solid #888;
 }
-article h2 a:link, article h3 a:link, section h2 a:link,
-article h2 a:visited, article h3 a:visited, section h2 a:visited {
+article h2 a:any-link, article h3 a:any-link, section h2 a:any-link {
 	color:inherit;
 	background-color:inherit;
 	text-decoration:none;
@@ -189,6 +188,43 @@ article h2 a:hover, article h3 a:hover, section h2 a:hover {
 }
 article h3 {
 	font-size:125%;
+}
+
+/******************************************************************
+ ** Prev/Next Navigation
+ ******************************************************************/
+.prevnext {
+	max-width:40rem;
+	margin:0 -2rem -1rem;
+	background-color:#e6e6e6;
+	font-size:0pt;
+	text-align:center;
+	border-top:2px solid #888;
+}
+.prev, .next {
+	font-size:initial;
+	display:inline-block;
+	width:2em;
+	background-color:#ffca00;
+	background:linear-gradient(to bottom, #ffe26e 0%,#ffca00 100%);
+	color:#000;
+	text-align:center;
+}
+span.prev, span.next {
+	background-color:#bdbdbd;
+	background:linear-gradient(to bottom, #e6e6e6 0%,#bdbdbd 100%);
+}
+.prev {
+	float:left;
+	border-right:2px solid #888;
+}
+.next {
+	float:right;
+	border-left:2px solid #888;
+}
+a.prev:any-link, a.next:any-link {
+	text-decoration:none;
+	color:#000;
 }
 
 /******************************************************************
